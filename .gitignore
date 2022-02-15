@@ -5,3 +5,5 @@ bin/
 doc/
 target/
 *.properties
+.settings/
+.project
