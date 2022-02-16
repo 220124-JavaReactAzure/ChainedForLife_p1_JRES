@@ -3,5 +3,6 @@
 ## Developers
 ### Joshua Robles
 ### Andy Escobar
-
+## Program Flow
+## SQL Design
 
