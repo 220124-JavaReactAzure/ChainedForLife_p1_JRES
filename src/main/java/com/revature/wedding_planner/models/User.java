@@ -92,6 +92,8 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	// Methods
 
 	@Override
 	public String toString() {

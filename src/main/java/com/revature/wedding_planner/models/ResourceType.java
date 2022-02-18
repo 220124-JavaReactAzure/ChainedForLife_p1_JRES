@@ -26,6 +26,8 @@ public class ResourceType {
 	@Column(name = "resource_type_name", unique = true, nullable = false)
 	private String name;
 	
+	// Constructors
+	
 	public ResourceType() {
 		super();
 	}
@@ -35,6 +37,8 @@ public class ResourceType {
 		this.id = id;
 		this.name = name;
 	}
+	
+	// Getters and Setters
 
 	public int getId() {
 		return id;
@@ -51,6 +55,8 @@ public class ResourceType {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	// Methods
 
 	@Override
 	public String toString() {
