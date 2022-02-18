@@ -1,5 +1,5 @@
 package com.revature.wedding_planner.services;
 
-public class WeddingServices {
+public class PlusOneService {
 
 }
