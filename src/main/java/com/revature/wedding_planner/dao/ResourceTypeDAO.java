@@ -28,8 +28,8 @@ public class ResourceTypeDAO {
 		try {
 			Session session = HibernateUtil.getSession();
 			@SuppressWarnings("unchecked")
-			List<ResourceType> resourceType = session.createQuery("FROM ResourceType").list();
-			return resourceType;
+			List<ResourceType> resourceTypes = session.createQuery("FROM ResourceType").list();
+			return resourceTypes;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
