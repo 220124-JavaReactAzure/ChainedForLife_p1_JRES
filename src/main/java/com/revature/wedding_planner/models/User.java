@@ -24,6 +24,9 @@ public class User {
 	@Column(name = "user_id")
 	private int id;
 	
+	@JoinColumn(name = "user_type_id", nullable = false)
+	private int typeID;
+	
 	@Column(name = "user_name", nullable = false)
 	private String name;
 
@@ -32,9 +35,6 @@ public class User {
 	
 	@Column(name = "user_password", nullable = false)
 	private String password;
-	
-	@JoinColumn(name = "user_type_id", nullable = false)
-	private int typeID;
 	
 	// Constructors
 	
@@ -60,6 +60,14 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public int getTypeID() {
+		return typeID;
+	}
+
+	public void setTypeID(int typeID) {
+		this.typeID = typeID;
+	}
 
 	public String getName() {
 		return name;
@@ -83,14 +91,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getTypeID() {
-		return typeID;
-	}
-
-	public void setTypeID(int typeID) {
-		this.typeID = typeID;
 	}
 
 	@Override
