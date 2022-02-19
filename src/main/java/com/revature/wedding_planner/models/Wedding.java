@@ -33,7 +33,7 @@ public class Wedding {
 	
 	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	@JsonIgnoreProperties(value="wedding")
-	private List<Resource> resources;
+	private List<RentedResource> rentedResources;
 	
 	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	@JsonIgnoreProperties(value="wedding")
@@ -45,11 +45,11 @@ public class Wedding {
 		super();
 	}
 	
-	public Wedding(int id, int userID, List<Resource> resources, List<Attendee> attendees) {
+	public Wedding(int id, int userID, List<RentedResource> rentedResources, List<Attendee> attendees) {
 		super();
 		this.id = id;
 		this.userID = userID;
-		this.resources = resources;
+		this.rentedResources = rentedResources;
 		this.attendees = attendees;
 	}
 	
@@ -71,12 +71,12 @@ public class Wedding {
 		this.userID = userID;
 	}
 
-	public List<Resource> getResources() {
-		return resources;
+	public List<RentedResource> getRentedResources() {
+		return rentedResources;
 	}
 
-	public void setResources(List<Resource> resources) {
-		this.resources = resources;
+	public void setResources(List<RentedResource> rentedResources) {
+		this.rentedResources = rentedResources;
 	}
 
 	public List<Attendee> getAttendees() {
@@ -91,13 +91,13 @@ public class Wedding {
 
 	@Override
 	public String toString() {
-		return "Wedding [id=" + id + ", userID=" + userID + ", resources=" + resources + ", attendees=" + attendees
+		return "Wedding [id=" + id + ", userID=" + userID + ", rentedResources=" + rentedResources + ", attendees=" + attendees
 				+ "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(attendees, id, resources, userID);
+		return Objects.hash(attendees, id, rentedResources, userID);
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class Wedding {
 			return false;
 		Wedding other = (Wedding) obj;
 		return Objects.equals(attendees, other.attendees) && id == other.id
-				&& Objects.equals(resources, other.resources) && userID == other.userID;
+				&& Objects.equals(rentedResources, other.rentedResources) && userID == other.userID;
 	}
 	
 }
