@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import com.revature.wedding_planner.models.Attendee;
 import com.revature.wedding_planner.util.HibernateUtil;
@@ -61,5 +62,27 @@ public class AttendeeDAO {
 			HibernateUtil.closeSession();
 		}
 
+	}
+	
+	public boolean deleteAttendee(Attendee attendee) {
+		try {
+			Session session = HibernateUtil.getSession();
+			
+			//deletion query
+			String sql = "delete from attendee where attendee_id = ?";
+			
+			Query q = session.createQuery(sql);
+			q.setParameter("attendee_id", attendee.getId());
+			q.executeUpdate();
+			
+			return true;
+			
+		}catch(HibernateException | IOException e) {
+			e.printStackTrace();
+			return false;
+			
+		} finally {
+			HibernateUtil.closeSession();
+		}
 	}
 }
