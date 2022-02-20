@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.revature.wedding_planner.models.ResourceType;
 import com.revature.wedding_planner.util.HibernateUtil;
@@ -46,6 +47,21 @@ public class ResourceTypeDAO {
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+	
+	public void updateResourceTypeWithSessionMethod(ResourceType resourceType) {
+		try {
+			Session session = HibernateUtil.getSession();
+			
+			Transaction transaction = session.beginTransaction();
+			session.merge(resourceType);
+			transaction.commit();
+			
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
 		}
