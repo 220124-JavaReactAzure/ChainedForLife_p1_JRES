@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import com.revature.wedding_planner.models.DinnerType;
+import com.revature.wedding_planner.models.UserType;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
@@ -26,6 +27,7 @@ public class HibernateUtil {
 			configuration.setProperties(props);
 			// ONE ADDITIONAL STEP I NEED TO INCLUDE
 			configuration.addAnnotatedClass(DinnerType.class);
+			configuration.addAnnotatedClass(UserType.class);
 
 			// ServiceRegistry
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

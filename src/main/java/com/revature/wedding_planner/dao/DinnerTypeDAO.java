@@ -58,6 +58,7 @@ public class DinnerTypeDAO {
 			Transaction transaction = session.beginTransaction();
 			session.merge(dinnerType);
 			transaction.commit();
+			
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 		} finally {

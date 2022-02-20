@@ -25,6 +25,10 @@ public class UserTypeService {
 		return userTypeDAO.getUserTypeByID(id);
 	}
 	
+	public void updateUserTypeWithSessionMethod(UserType userType) {
+		userTypeDAO.updateUserTypeWithSessionMethod(userType);
+	}
+	
 	//TODO implement in DAO
 	public void deleteUserType(int id) {
 		userTypeDAO.deleteUserType(id);

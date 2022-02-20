@@ -7,9 +7,15 @@ import javax.servlet.annotation.WebListener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.revature.wedding_planner.dao.AttendeeDAO;
 import com.revature.wedding_planner.dao.DinnerTypeDAO;
+import com.revature.wedding_planner.dao.UserTypeDAO;
+import com.revature.wedding_planner.services.AttendeeService;
 import com.revature.wedding_planner.services.DinnerTypeService;
+import com.revature.wedding_planner.services.UserTypeService;
+import com.revature.wedding_planner.web.servlets.AttendeeServlet;
 import com.revature.wedding_planner.web.servlets.DinnerTypeServlet;
+import com.revature.wedding_planner.web.servlets.UserTypeServlet;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener{
@@ -23,6 +29,10 @@ public class ContextLoaderListener implements ServletContextListener{
 		DinnerTypeDAO dinnerTypeDAO = new DinnerTypeDAO();
 		DinnerTypeService dinnerTypeService = new DinnerTypeService(dinnerTypeDAO);
 		DinnerTypeServlet dinnerTypeServlet = new DinnerTypeServlet(dinnerTypeService, mapper);
+		
+		UserTypeDAO userTypeDAO = new UserTypeDAO();
+		UserTypeService userTypeService = new UserTypeService(userTypeDAO);
+		UserTypeServlet userTypeServlet = new UserTypeServlet(userTypeService, mapper);
         
         AttendeeDAO attendeeDAO = new AttendeeDAO();
         AttendeeService attendeeService = new AttendeeService(attendeeDAO);
@@ -30,6 +40,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		
 		ServletContext context = sce.getServletContext();
 		context.addServlet("DinnerTypeServlet", dinnerTypeServlet).addMapping("/dinnerType/*");
+		context.addServlet("UserTypeServlet", userTypeServlet).addMapping("/userType/*");
 		
 	}
 	

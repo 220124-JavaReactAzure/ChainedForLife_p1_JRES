@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.revature.wedding_planner.models.UserType;
 import com.revature.wedding_planner.util.HibernateUtil;
@@ -46,6 +47,21 @@ public class UserTypeDAO {
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+	
+	public void updateUserTypeWithSessionMethod(UserType userType) {
+		try {
+			Session session = HibernateUtil.getSession();
+			
+			Transaction transaction = session.beginTransaction();
+			session.merge(userType);
+			transaction.commit();
+			
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
 		}
