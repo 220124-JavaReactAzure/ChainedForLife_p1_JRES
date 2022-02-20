@@ -1,6 +1,8 @@
 package com.revature.wedding_planner.web.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +23,48 @@ public class DinnerTypeServlet extends HttpServlet {
 	public DinnerTypeServlet(DinnerTypeService dinnerTypeService, ObjectMapper mapper) {
 		this.dinnerTypeService = dinnerTypeService;
 		this.mapper = mapper;
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		PrintWriter writer = resp.getWriter();
+		
+		String path = req.getPathInfo();
+		if(path == null) path = "";
+		switch(path) {
+		
+		case "/ID":
+			try {
+				String idParam = req.getParameter("dinnerTypeID");
+				if(idParam == null) {
+					resp.setStatus(400);
+					writer.write("Please include the query ?dinnerTypeID=# in your url");
+					return;
+				}
+				
+				int dinnerTypeID = Integer.valueOf(idParam);
+				
+				DinnerType dinnerType = dinnerTypeService.getDinnerTypeByID(dinnerTypeID);
+				if(dinnerType == null) {
+					resp.setStatus(500);
+					return;
+				}
+				
+				String payload = mapper.writeValueAsString(dinnerType);
+				writer.write(payload);
+				resp.setStatus(200);
+			} catch (StreamReadException | DatabindException e) {
+				resp.setStatus(400);
+			}
+			break;
+		
+		default:
+			List<DinnerType> dinnerTypes = dinnerTypeService.getAllDinnerTypes();
+			String payload = mapper.writeValueAsString(dinnerTypes);
+			writer.write(payload);
+			resp.setStatus(200);
+			break;
+		}
 	}
 	
 	@Override
