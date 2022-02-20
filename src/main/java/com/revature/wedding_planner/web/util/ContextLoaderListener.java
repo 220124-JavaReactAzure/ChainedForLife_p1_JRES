@@ -23,6 +23,10 @@ public class ContextLoaderListener implements ServletContextListener{
 		DinnerTypeDAO dinnerTypeDAO = new DinnerTypeDAO();
 		DinnerTypeService dinnerTypeService = new DinnerTypeService(dinnerTypeDAO);
 		DinnerTypeServlet dinnerTypeServlet = new DinnerTypeServlet(dinnerTypeService, mapper);
+        
+        AttendeeDAO attendeeDAO = new AttendeeDAO();
+        AttendeeService attendeeService = new AttendeeService(attendeeDAO);
+        AttendeeServlet attendeeServlet = new AttendeeServlet(attendeeService, mapper);	
 		
 		ServletContext context = sce.getServletContext();
 		context.addServlet("DinnerTypeServlet", dinnerTypeServlet).addMapping("/dinnerType/*");
