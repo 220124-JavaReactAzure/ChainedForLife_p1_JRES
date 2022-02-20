@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.revature.wedding_planner.models.DinnerType;
 import com.revature.wedding_planner.util.HibernateUtil;
@@ -45,6 +46,20 @@ public class DinnerTypeDAO {
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+	
+	public void updateDinnerTypeWithSessionMethod(DinnerType dinnerType) {
+		try {
+			Session session = HibernateUtil.getSession();
+			
+			Transaction transaction = session.beginTransaction();
+			session.merge(dinnerType);
+			transaction.commit();
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
 		}

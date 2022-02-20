@@ -90,4 +90,21 @@ public class DinnerTypeServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			DinnerType updatedDinnerType = mapper.readValue(req.getInputStream(), DinnerType.class);
+			dinnerTypeService.updateDinnerTypeWithSessionMethod(updatedDinnerType);
+			resp.setStatus(204);	
+		} catch (StreamReadException | DatabindException e) {
+			resp.setStatus(400);
+			resp.getWriter().write("JSON threw exception");
+			e.printStackTrace();
+		} catch (Exception e) {
+			resp.setStatus(500);
+			resp.getWriter().write("Some other random exception did not persist");
+			e.printStackTrace();
+		}
+	}
 }
