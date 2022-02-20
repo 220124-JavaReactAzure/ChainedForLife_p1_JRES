@@ -9,6 +9,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.revature.wedding_planner.models.DinnerType;
+
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
 	private static Session session;
@@ -23,7 +25,7 @@ public class HibernateUtil {
 			// Add properties to our configuration
 			configuration.setProperties(props);
 			// ONE ADDITIONAL STEP I NEED TO INCLUDE
-			//configuration.addAnnotatedClass(Director.class);
+			configuration.addAnnotatedClass(DinnerType.class);
 
 			// ServiceRegistry
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

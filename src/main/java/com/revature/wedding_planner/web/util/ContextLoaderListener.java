@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.revature.wedding_planner.dao.DinnerTypeDAO;
 import com.revature.wedding_planner.services.DinnerTypeService;
+import com.revature.wedding_planner.web.servlets.DinnerTypeServlet;
 
 @WebListener
 public class ContextLoaderListener implements ServletContextListener{
@@ -21,8 +22,10 @@ public class ContextLoaderListener implements ServletContextListener{
 		
 		DinnerTypeDAO dinnerTypeDAO = new DinnerTypeDAO();
 		DinnerTypeService dinnerTypeService = new DinnerTypeService(dinnerTypeDAO);
+		DinnerTypeServlet dinnerTypeServlet = new DinnerTypeServlet(dinnerTypeService, mapper);
 		
 		ServletContext context = sce.getServletContext();
+		context.addServlet("DinnerTypeServlet", dinnerTypeServlet).addMapping("/dinnerType/*");
 		
 	}
 	
