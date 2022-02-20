@@ -55,6 +55,8 @@ public class UserType {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	// Methods
 
 	@Override
 	public String toString() {
