@@ -25,6 +25,10 @@ public class ResourceTypeService {
 		return resourceTypeDAO.getResourceTypeByID(id);
 	}
 	
+	public void updateResourceTypeWithSessionMethod(ResourceType resourceType) {
+		resourceTypeDAO.updateResourceTypeWithSessionMethod(resourceType);
+	}
+	
 	// TODO implement this in DAO
 	public void deleteResourceType(int id) {
 		resourceTypeDAO.deleteResourceType(id);
