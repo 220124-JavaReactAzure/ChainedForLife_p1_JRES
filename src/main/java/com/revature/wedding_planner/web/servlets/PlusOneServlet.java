@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 public class PlusOneServlet extends HttpServlet{
 	@Override
 	public void init() throws ServletException {
-		System.out.println("Init has been called for TestServlet");
+		System.out.println("Init has been called for PlusOneServlet");
 	}
 	
 	@Override
