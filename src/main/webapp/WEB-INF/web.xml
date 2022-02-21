@@ -5,4 +5,22 @@
 	version="3.1">
 
 	<display-name>Wedding_planner</display-name>
+        <welcome-file-list>
+            <welcome-file>index.html</welcome-file>
+        </welcome-file-list>
+
+        <servlet>
+            <servlet-name>TestServlet</servlet-name>
+            <servlet-class>com.revature.wedding_planner.web.servlets.TestServlet</servlet-class>
+        </servlet>
+        
+        <servlet>
+            <servlet-name>AttendeeServlet</servlet-name>
+            <servlet-class>com.revature.wedding_planner.web.servlets.AttendeeServlet</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>TestServlet</servlet-name>
+            <url-pattern>/test</url-pattern>
+        </servlet-mapping>
 </web-app>

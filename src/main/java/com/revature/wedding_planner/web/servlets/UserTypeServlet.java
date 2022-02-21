@@ -5,10 +5,12 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,13 @@ public class UserTypeServlet extends HttpServlet {
 	public UserTypeServlet(UserTypeService userTypeService, ObjectMapper mapper) {
 		this.userTypeService = userTypeService;
 		this.mapper = mapper;
+=======
+@WebServlet("/usertype")
+public class UserTypeServlet extends HttpServlet{
+	@Override
+	public void init() throws ServletException {
+		System.out.println("Init has been called for UserTypeServlet");
+>>>>>>> b44d363b406d24a61ad4d845688116a945a8eea0
 	}
 
 	@Override
