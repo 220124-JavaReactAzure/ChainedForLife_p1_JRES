@@ -69,9 +69,9 @@ public class AttendeeDAO {
 			Session session = HibernateUtil.getSession();
 			
 			//deletion query
-			String sql = "delete from attendee where attendee_id = ?";
+			String hql = "delete from attendee where attendee_id = ?";
 			
-			Query q = session.createQuery(sql);
+			Query q = session.createQuery(hql);
 			q.setParameter("attendee_id", attendee.getId());
 			q.executeUpdate();
 			
