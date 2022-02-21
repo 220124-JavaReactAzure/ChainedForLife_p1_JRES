@@ -3,12 +3,15 @@ package com.revature.wedding_planner.models;
 import java.sql.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -25,8 +28,9 @@ public class Resource {
 	@Column(name = "resource_id")
 	private int id;
 	
+	@ManyToOne(fetch= FetchType.EAGER, cascade= CascadeType.ALL)
 	@JoinColumn(name = "resource_type_id", nullable = false)
-	private int typeID;
+	private ResourceType type;
 	
 	@Column(name = "resource_date_available_start")
 	private Date dateAvailableStart;
@@ -43,10 +47,10 @@ public class Resource {
 		super();
 	}
 	
-	public Resource(int id, int typeID, Date dateAvailableStart, Date dateAvailableEnd, int cost) {
+	public Resource(int id, ResourceType type, Date dateAvailableStart, Date dateAvailableEnd, int cost) {
 		super();
 		this.id = id;
-		this.typeID = typeID;
+		this.type = type;
 		this.dateAvailableStart = dateAvailableStart;
 		this.dateAvailableEnd = dateAvailableEnd;
 		this.cost = cost;
@@ -62,12 +66,12 @@ public class Resource {
 		this.id = id;
 	}
 
-	public int getTypeID() {
-		return typeID;
+	public ResourceType getType() {
+		return type;
 	}
 
-	public void setTypeID(int typeID) {
-		this.typeID = typeID;
+	public void setType(ResourceType type) {
+		this.type = type;
 	}
 
 	public Date getDateAvailableStart() {
@@ -98,13 +102,13 @@ public class Resource {
 
 	@Override
 	public String toString() {
-		return "Resource [id=" + id + ", typeID=" + typeID + ", dateAvailableStart=" + dateAvailableStart
+		return "Resource [id=" + id + ", type=" + type + ", dateAvailableStart=" + dateAvailableStart
 				+ ", dateAvailableEnd=" + dateAvailableEnd + ", cost=" + cost + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cost, dateAvailableEnd, dateAvailableStart, id, typeID);
+		return Objects.hash(cost, dateAvailableEnd, dateAvailableStart, id, type);
 	}
 
 	@Override
@@ -118,7 +122,7 @@ public class Resource {
 		Resource other = (Resource) obj;
 		return cost == other.cost && Objects.equals(dateAvailableEnd, other.dateAvailableEnd)
 				&& Objects.equals(dateAvailableStart, other.dateAvailableStart) && id == other.id
-				&& typeID == other.typeID;
+				&& type == other.type;
 	}
 	
 }

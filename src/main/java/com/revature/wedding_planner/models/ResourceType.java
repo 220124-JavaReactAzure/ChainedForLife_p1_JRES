@@ -1,15 +1,19 @@
 package com.revature.wedding_planner.models;
 
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -25,6 +29,10 @@ public class ResourceType {
 	
 	@Column(name = "resource_type_name", unique = true, nullable = false)
 	private String name;
+	
+	@OneToMany(mappedBy="type", cascade= CascadeType.ALL)
+	@JsonIgnoreProperties(value="resource")
+	private List<Resource> resources;
 	
 	// Constructors
 	
