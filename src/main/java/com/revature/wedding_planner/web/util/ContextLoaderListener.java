@@ -9,16 +9,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.revature.wedding_planner.dao.AttendeeDAO;
 import com.revature.wedding_planner.dao.DinnerTypeDAO;
+import com.revature.wedding_planner.dao.ResourceDAO;
 import com.revature.wedding_planner.dao.ResourceTypeDAO;
 import com.revature.wedding_planner.dao.UserDAO;
 import com.revature.wedding_planner.dao.UserTypeDAO;
 import com.revature.wedding_planner.services.AttendeeService;
 import com.revature.wedding_planner.services.DinnerTypeService;
+import com.revature.wedding_planner.services.ResourceService;
 import com.revature.wedding_planner.services.ResourceTypeService;
 import com.revature.wedding_planner.services.UserService;
 import com.revature.wedding_planner.services.UserTypeService;
 import com.revature.wedding_planner.web.servlets.AttendeeServlet;
 import com.revature.wedding_planner.web.servlets.DinnerTypeServlet;
+import com.revature.wedding_planner.web.servlets.ResourceServlet;
 import com.revature.wedding_planner.web.servlets.ResourceTypeServlet;
 import com.revature.wedding_planner.web.servlets.UserServlet;
 import com.revature.wedding_planner.web.servlets.UserTypeServlet;
@@ -48,6 +51,10 @@ public class ContextLoaderListener implements ServletContextListener{
 		ResourceTypeService resourceTypeService = new ResourceTypeService(resourceTypeDAO);
 		ResourceTypeServlet resourceTypeServlet = new ResourceTypeServlet(resourceTypeService, mapper);
         
+		ResourceDAO resourceDAO = new ResourceDAO();
+		ResourceService resourceService = new ResourceService(resourceDAO);
+		ResourceServlet resourceServlet = new ResourceServlet(resourceService, mapper);
+		
         AttendeeDAO attendeeDAO = new AttendeeDAO();
         AttendeeService attendeeService = new AttendeeService(attendeeDAO);
         AttendeeServlet attendeeServlet = new AttendeeServlet(attendeeService, mapper);	
@@ -57,6 +64,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		context.addServlet("UserTypeServlet", userTypeServlet).addMapping("/userType/*");
 		context.addServlet("UserServlet", userServlet).addMapping("/user/*");
 		context.addServlet("ResourceTypeServlet", resourceTypeServlet).addMapping("/resourceType/*");
+		context.addServlet("ResourceServlet", resourceServlet).addMapping("/resource/*");
 		
 	}
 	
