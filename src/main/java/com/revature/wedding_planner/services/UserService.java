@@ -25,6 +25,10 @@ public class UserService {
 		return userDAO.getUserByID(id);
 	}
 	
+	public void updateUserWithSessionMethod(User user) {
+		userDAO.updateUserWithSessionMethod(user);
+	}
+	
 	// TODO implement this in DAO
 	public void deleteUser(int id) {
 		userDAO.deleteUser(id);
