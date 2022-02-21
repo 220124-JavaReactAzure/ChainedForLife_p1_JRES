@@ -25,6 +25,10 @@ public class ResourceService {
 		return resourceDAO.getResourceByID(id);
 	}
 	
+	public void updateResourceWithSessionMethod(Resource resource) {
+		resourceDAO.updateResourceWithSessionMethod(resource);
+	}
+	
 	// TODO implement this in DAO
 	public void deleteResource(int id) {
 		resourceDAO.deleteResource(id);
