@@ -2,15 +2,21 @@ package com.revature.wedding_planner.models;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -24,8 +30,9 @@ public class User {
 	@Column(name = "user_id")
 	private int id;
 	
-	@JoinColumn(name = "user_type_id", nullable = false)
-	private int typeID;
+	@ManyToOne(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+	@JoinColumn(name="user_type_id")
+	private UserType type;
 	
 	@Column(name = "user_name", nullable = false)
 	private String name;
@@ -42,13 +49,13 @@ public class User {
 		super();
 	}
 	
-	public User(int id, String name, String email, String password, int typeID) {
+	public User(int id, String name, String email, String password, UserType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.typeID = typeID;
+		this.type = type;
 	}
 	
 	// Getters and Setters
@@ -61,12 +68,12 @@ public class User {
 		this.id = id;
 	}
 	
-	public int getTypeID() {
-		return typeID;
+	public UserType getType() {
+		return type;
 	}
 
-	public void setTypeID(int typeID) {
-		this.typeID = typeID;
+	public void setType(UserType type) {
+		this.type = type;
 	}
 
 	public String getName() {
@@ -97,13 +104,13 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", typeID="
-				+ typeID + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", type="
+				+ type + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, id, name, password, typeID);
+		return Objects.hash(email, id, name, password, type);
 	}
 
 	@Override
@@ -116,7 +123,7 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(email, other.email) && id == other.id && Objects.equals(name, other.name)
-				&& Objects.equals(password, other.password) && typeID == other.typeID;
+				&& Objects.equals(password, other.password) && type == other.type;
 	}
 	
 }

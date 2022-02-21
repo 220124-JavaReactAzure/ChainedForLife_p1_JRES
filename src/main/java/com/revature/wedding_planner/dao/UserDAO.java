@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.revature.wedding_planner.models.User;
 import com.revature.wedding_planner.util.HibernateUtil;
@@ -13,8 +14,9 @@ public class UserDAO {
 
 	public boolean addUser(User user) {
 		try {
-			Session session = HibernateUtil.getSession();
+			Session session = HibernateUtil.getSession();		
 			session.save(user);
+			
 			return true;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
@@ -50,8 +52,23 @@ public class UserDAO {
 			HibernateUtil.closeSession();
 		}
 	}
-	
-	//TODO implement this it's not complete
+
+	public void updateUserWithSessionMethod(User user) {
+		try {
+			Session session = HibernateUtil.getSession();
+
+			Transaction transaction = session.beginTransaction();
+			session.merge(user);
+			transaction.commit();
+
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	// TODO implement this it's not complete
 	public void deleteUser(int id) {
 		try {
 			Session session = HibernateUtil.getSession();
