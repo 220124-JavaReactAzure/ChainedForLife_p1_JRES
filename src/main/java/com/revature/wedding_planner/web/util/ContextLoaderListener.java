@@ -67,7 +67,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		
 		RentedResourceDAO rentedResourceDAO = new RentedResourceDAO();
 		RentedResourceService rentedResourceService = new RentedResourceService(rentedResourceDAO);
-		RentedResourceServlet rentedRentedResourceServlet = new RentedResourceServlet(rentedResourceService, mapper);
+		RentedResourceServlet rentedResourceServlet = new RentedResourceServlet(rentedResourceService, mapper);
 		
         AttendeeDAO attendeeDAO = new AttendeeDAO();
         AttendeeService attendeeService = new AttendeeService(attendeeDAO);
@@ -80,6 +80,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		context.addServlet("WeddingServlet", weddingServlet).addMapping("/wedding/*");
 		context.addServlet("ResourceTypeServlet", resourceTypeServlet).addMapping("/resourceType/*");
 		context.addServlet("ResourceServlet", resourceServlet).addMapping("/resource/*");
+		context.addServlet("RentedResourceServlet", rentedResourceServlet).addMapping("/rentedResource/*");
 		
 	}
 	
