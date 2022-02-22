@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.wedding_planner.models.Attendee;
 import com.revature.wedding_planner.services.AttendeeService;
 
-@WebServlet("/attendee")
+
 public class AttendeeServlet extends HttpServlet{
 	
 	@Override

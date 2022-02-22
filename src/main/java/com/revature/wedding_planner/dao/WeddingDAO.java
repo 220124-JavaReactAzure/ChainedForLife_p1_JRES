@@ -64,7 +64,7 @@ public class WeddingDAO {
 
 	}
 
-	public boolean deleteWeddig(Wedding wedding) {
+	public boolean deletesWedding(Wedding wedding) {
 		try {
 			Session session = HibernateUtil.getSession();
 
@@ -85,4 +85,8 @@ public class WeddingDAO {
 			HibernateUtil.closeSession();
 		}
 	}
+
+	
+
+
 }

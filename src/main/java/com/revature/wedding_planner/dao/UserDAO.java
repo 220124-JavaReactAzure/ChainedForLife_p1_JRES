@@ -78,4 +78,22 @@ public class UserDAO {
 			HibernateUtil.closeSession();
 		}
 	}
+
+	public User findByUsernameAndPassword(String username, String password) {
+		// TODO Auto-generated method stub
+		Session session;
+		try {
+			session = HibernateUtil.getSession();
+			User user = session.get(User.class, username);
+			
+			
+			return user;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+		
+	}
 }

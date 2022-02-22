@@ -3,6 +3,8 @@ package com.revature.wedding_planner.services;
 import java.util.List;
 
 import com.revature.wedding_planner.dao.UserDAO;
+import com.revature.wedding_planner.exceptions.AuthenticationException;
+import com.revature.wedding_planner.exceptions.InvalidRequestException;
 import com.revature.wedding_planner.models.User;
 
 public class UserService {
@@ -32,5 +34,20 @@ public class UserService {
 	// TODO implement this in DAO
 	public void deleteUser(int id) {
 		userDAO.deleteUser(id);
+	}
+
+	public User authenticateUser(String username, String password) {
+		// TODO Auto-generated method stub
+		
+		if(username == null || username.trim().equals("") || password == null || password.trim().equals("")) {
+			throw new InvalidRequestException("Either username or password is an invalid entry. Please try logging in again");
+		}
+		
+		User authenticatedUser = userDAO.findByUsernameAndPassword(username, password);
+		
+		if(authenticatedUser == null) {
+			throw new AuthenticationException("Unauthenticated user, information provided was not found in our database.");
+		}
+		return authenticatedUser;
 	}
 }
