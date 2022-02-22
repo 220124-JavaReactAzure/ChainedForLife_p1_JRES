@@ -14,6 +14,7 @@ import com.revature.wedding_planner.models.Resource;
 import com.revature.wedding_planner.models.ResourceType;
 import com.revature.wedding_planner.models.User;
 import com.revature.wedding_planner.models.UserType;
+import com.revature.wedding_planner.models.Wedding;
 
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
@@ -32,9 +33,10 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(DinnerType.class);
 			configuration.addAnnotatedClass(UserType.class);
 			configuration.addAnnotatedClass(User.class);
+			configuration.addAnnotatedClass(Wedding.class);
 			configuration.addAnnotatedClass(ResourceType.class);
 			configuration.addAnnotatedClass(Resource.class);
-
+			
 			// ServiceRegistry
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
