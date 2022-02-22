@@ -5,25 +5,25 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
 
 import com.revature.wedding_planner.models.Wedding;
 import com.revature.wedding_planner.util.HibernateUtil;
 
 public class WeddingDAO {
 
-	public Wedding addWedding(Wedding wedding) {
+	public boolean addWedding(Wedding wedding) {
 
 		try {
 			Session session = HibernateUtil.getSession();
 
 			session.save(wedding);
 
-			return wedding;
+			return true;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		} finally {
 			HibernateUtil.closeSession();
 		}
@@ -45,7 +45,7 @@ public class WeddingDAO {
 		}
 	}
 
-	public Wedding getWeddingById(int id) {
+	public Wedding getWeddingByID(int id) {
 
 		try {
 			Session session = HibernateUtil.getSession();
@@ -63,8 +63,23 @@ public class WeddingDAO {
 		}
 
 	}
+	
+	public void updateWeddingWithSessionMethod(Wedding wedding) {
+		try {
+			Session session = HibernateUtil.getSession();
 
-	public boolean deleteWeddig(Wedding wedding) {
+			Transaction transaction = session.beginTransaction();
+			session.merge(wedding);
+			transaction.commit();
+
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	public boolean deleteWedding(Wedding wedding) {
 		try {
 			Session session = HibernateUtil.getSession();
 
