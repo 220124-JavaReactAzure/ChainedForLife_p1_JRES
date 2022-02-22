@@ -38,9 +38,8 @@ public class Wedding {
 	@NotFound(action=NotFoundAction.IGNORE)
 	private User userID;
 	
-//	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
-//	@JsonIgnoreProperties(value="wedding")
-//	private List<RentedResource> rentedResources;
+	@OneToMany(mappedBy="weddingID", fetch=FetchType.EAGER)
+	private List<RentedResource> rentedResources;
 //	
 //	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 //	@JsonIgnoreProperties(value="wedding")
