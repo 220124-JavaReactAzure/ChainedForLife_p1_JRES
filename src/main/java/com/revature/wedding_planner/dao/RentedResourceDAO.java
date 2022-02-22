@@ -9,7 +9,6 @@ import java.util.List;
 import org.hibernate.HibernateException;
 
 import com.revature.wedding_planner.models.RentedResource;
-import com.revature.wedding_planner.models.User;
 import com.revature.wedding_planner.util.HibernateUtil;
 
 

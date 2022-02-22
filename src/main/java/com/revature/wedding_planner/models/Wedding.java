@@ -19,14 +19,14 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name= "weddings")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+		property = "id",
+		scope=Wedding.class)
 public class Wedding {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Serial in SQL
@@ -38,7 +38,7 @@ public class Wedding {
 	@NotFound(action=NotFoundAction.IGNORE)
 	private User userID;
 	
-	@OneToMany(mappedBy="weddingID", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	private List<RentedResource> rentedResources;
 //	
 //	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
