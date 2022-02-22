@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.revature.wedding_planner.models.Attendee;
@@ -81,6 +82,34 @@ public class AttendeeDAO {
 			e.printStackTrace();
 			return false;
 			
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	public void updateAttendeeWithSessionMethod(Attendee attendee) {
+		// TODO Auto-generated method stub
+		
+		try {
+			Session session = HibernateUtil.getSession();
+			
+			Transaction transaction = session.beginTransaction();
+			session.merge(attendee);
+			transaction.commit();
+			
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+		} finally {
+			HibernateUtil.closeSession();
+		}
+		
+	}
+	
+	public void deleteAttendeeByID(int id) {
+		try {
+			Session session = HibernateUtil.getSession();
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
 		}

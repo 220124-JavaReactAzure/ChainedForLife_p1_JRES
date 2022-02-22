@@ -39,4 +39,9 @@ public class AttendeeService {
 		public void deleteAttendee(Attendee id) {
 			attendeeDAO.deleteAttendee(id);
 		}
+
+		public void updateAttendeeWithSessionMethod(Attendee attendee) {
+			// TODO Auto-generated method stub
+			attendeeDAO.updateAttendeeWithSessionMethod(attendee);
+		}
 }

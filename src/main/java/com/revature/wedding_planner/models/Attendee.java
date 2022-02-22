@@ -135,6 +135,8 @@ public class Attendee {
 		return dinnerTypeID == other.dinnerTypeID && id == other.id && isBringingPlusOne == other.isBringingPlusOne
 				&& isGoing == other.isGoing && userID == other.userID && Objects.equals(wedding, other.wedding);
 	}
+
+	
 	
 	
 }
