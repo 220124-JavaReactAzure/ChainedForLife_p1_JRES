@@ -100,4 +100,8 @@ public class WeddingDAO {
 			HibernateUtil.closeSession();
 		}
 	}
+
+	
+
+
 }

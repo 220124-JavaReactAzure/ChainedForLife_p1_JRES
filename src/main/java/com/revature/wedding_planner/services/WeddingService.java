@@ -5,8 +5,12 @@ import java.util.List;
 import com.revature.wedding_planner.dao.WeddingDAO;
 import com.revature.wedding_planner.models.Wedding;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WeddingService {
 	private final WeddingDAO weddingDAO;
+    private final Logger logger = LogManager.getRootLogger();
 
 	public WeddingService(WeddingDAO weddingDAO) {
 		this.weddingDAO = weddingDAO;

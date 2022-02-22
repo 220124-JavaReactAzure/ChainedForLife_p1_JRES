@@ -22,6 +22,7 @@ import com.revature.wedding_planner.services.UserService;
 import com.revature.wedding_planner.services.UserTypeService;
 import com.revature.wedding_planner.services.WeddingService;
 import com.revature.wedding_planner.web.servlets.AttendeeServlet;
+import com.revature.wedding_planner.web.servlets.AuthServlet;
 import com.revature.wedding_planner.web.servlets.DinnerTypeServlet;
 import com.revature.wedding_planner.web.servlets.ResourceServlet;
 import com.revature.wedding_planner.web.servlets.ResourceTypeServlet;
@@ -66,6 +67,10 @@ public class ContextLoaderListener implements ServletContextListener{
         AttendeeService attendeeService = new AttendeeService(attendeeDAO);
         AttendeeServlet attendeeServlet = new AttendeeServlet(attendeeService, mapper);	
 		
+        
+        AuthServlet authServlet = new AuthServlet(userService, mapper);
+ 
+        
 		ServletContext context = sce.getServletContext();
 		context.addServlet("DinnerTypeServlet", dinnerTypeServlet).addMapping("/dinnerType/*");
 		context.addServlet("UserTypeServlet", userTypeServlet).addMapping("/userType/*");
@@ -73,6 +78,8 @@ public class ContextLoaderListener implements ServletContextListener{
 		context.addServlet("WeddingServlet", weddingServlet).addMapping("/wedding/*");
 		context.addServlet("ResourceTypeServlet", resourceTypeServlet).addMapping("/resourceType/*");
 		context.addServlet("ResourceServlet", resourceServlet).addMapping("/resource/*");
+		context.addServlet("AuthServlet" , authServlet).addMapping("/auth");
+		context.addServlet("Attendee", attendeeServlet).addMapping("/attendee/*");
 		
 	}
 	
