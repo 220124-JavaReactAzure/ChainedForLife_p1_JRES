@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,14 +23,19 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		generator = ObjectIdGenerators.PropertyGenerator.class,
 		property = "id")
 public class RentedResource {
-	@Id
-	@JoinColumn(name="resource_id")
-	private int resourceID;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Serial in SQL
+	@Column(name = "rented_resource_id")
+	private int id;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="resource_id")
+	private Resource resourceID;
+	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="wedding_id", nullable = false)
-	private Wedding wedding;
+	private Wedding weddingID;
 	
 	@Column(name="date_rented")
 	private Date dateRented;
@@ -39,29 +46,29 @@ public class RentedResource {
 		super();
 	}
 
-	public RentedResource(int resourceID, Wedding wedding, Date dateRented) {
+	public RentedResource(Resource resourceID, Wedding weddingID, Date dateRented) {
 		super();
 		this.resourceID = resourceID;
-		this.wedding = wedding;
+		this.weddingID = weddingID;
 		this.dateRented = dateRented;
 	}
 	
 	// Getters and Setters
 
-	public int getResourceID() {
+	public Resource getResourceID() {
 		return resourceID;
 	}
 
-	public void setResourceID(int resourceID) {
+	public void setResourceID(Resource resourceID) {
 		this.resourceID = resourceID;
 	}
 
 	public Wedding getWedding() {
-		return wedding;
+		return weddingID;
 	}
 
-	public void setWedding(Wedding wedding) {
-		this.wedding = wedding;
+	public void setWedding(Wedding weddingID) {
+		this.weddingID = weddingID;
 	}
 
 	public Date getDateRented() {
@@ -76,12 +83,12 @@ public class RentedResource {
 
 	@Override
 	public String toString() {
-		return "RentedResource [resourceID=" + resourceID + ", wedding=" + wedding + ", dateRented=" + dateRented + "]";
+		return "RentedResource [resourceID=" + resourceID + ", weddingID=" + weddingID + ", dateRented=" + dateRented + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateRented, resourceID, wedding);
+		return Objects.hash(dateRented, resourceID, weddingID);
 	}
 
 	@Override
@@ -94,7 +101,7 @@ public class RentedResource {
 			return false;
 		RentedResource other = (RentedResource) obj;
 		return Objects.equals(dateRented, other.dateRented) && resourceID == other.resourceID
-				&& Objects.equals(wedding, other.wedding);
+				&& Objects.equals(weddingID, other.weddingID);
 	}
 	
 }

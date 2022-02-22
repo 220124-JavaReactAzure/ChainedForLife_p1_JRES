@@ -1,6 +1,7 @@
 package com.revature.wedding_planner.models;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -40,6 +45,9 @@ public class Resource {
 	
 	@Column(name = "resource_cost")
 	private int cost;
+	
+	@OneToMany(mappedBy="resourceID", fetch=FetchType.EAGER)
+	private List<RentedResource> rentedResourceIDs;
 	
 	// Constructors
 	
