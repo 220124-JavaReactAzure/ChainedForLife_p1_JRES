@@ -57,6 +57,7 @@ public class UserDAO {
 		try {
 			Session session = HibernateUtil.getSession();
 
+			//merge always use transaction and commit
 			Transaction transaction = session.beginTransaction();
 			session.merge(user);
 			transaction.commit();
@@ -68,16 +69,24 @@ public class UserDAO {
 		}
 	}
 
-	// TODO implement this it's not complete
+	// TODO
 	public void deleteUser(int id) {
 		try {
 			Session session = HibernateUtil.getSession();
+			Transaction transaction = session.beginTransaction();
+			User deletedUser = this.getUserByID(id);
+			
+			transaction.commit();
+			session.delete(deletedUser);
+			
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			HibernateUtil.closeSession();
 		}
 	}
+
+	
 
 	public User findByUsernameAndPassword(String username, String password) {
 		// TODO Auto-generated method stub

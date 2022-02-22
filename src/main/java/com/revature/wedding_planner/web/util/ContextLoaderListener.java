@@ -21,6 +21,7 @@ import com.revature.wedding_planner.web.servlets.AttendeeServlet;
 import com.revature.wedding_planner.web.servlets.AuthServlet;
 import com.revature.wedding_planner.web.servlets.DinnerTypeServlet;
 import com.revature.wedding_planner.web.servlets.ResourceTypeServlet;
+import com.revature.wedding_planner.web.servlets.TestServlet;
 import com.revature.wedding_planner.web.servlets.UserServlet;
 import com.revature.wedding_planner.web.servlets.UserTypeServlet;
 
@@ -32,6 +33,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new Hibernate5Module());
+		
 		
 		DinnerTypeDAO dinnerTypeDAO = new DinnerTypeDAO();
 		DinnerTypeService dinnerTypeService = new DinnerTypeService(dinnerTypeDAO);
