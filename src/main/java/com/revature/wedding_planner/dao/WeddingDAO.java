@@ -33,7 +33,7 @@ public class WeddingDAO {
 
 		try {
 			Session session = HibernateUtil.getSession();
-			List<Wedding> weddings = session.createQuery("FROM wedding").list();
+			List<Wedding> weddings = session.createQuery("FROM Wedding").list();
 
 			return weddings;
 		} catch (IOException e) {
