@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -42,6 +45,10 @@ public class User {
 	
 	@Column(name = "user_password", nullable = false)
 	private String password;
+	
+	@OneToOne(mappedBy="userID")
+	@NotFound(action=NotFoundAction.IGNORE)
+	private Wedding wedding;
 	
 	// Constructors
 	
