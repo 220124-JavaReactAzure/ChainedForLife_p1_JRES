@@ -6,9 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.revature.wedding_planner.dao.AttendeeDAO;
-import com.revature.wedding_planner.dao.DinnerTypeDAO;
+
 import com.revature.wedding_planner.models.Attendee;
-import com.revature.wedding_planner.models.DinnerType;
+
 
 public class AttendeeService {
 

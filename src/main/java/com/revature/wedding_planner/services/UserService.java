@@ -35,18 +35,22 @@ public class UserService {
 	}
 
 	//TODO uncomment this when uploaded throw classes
-	public User authenticateUser(String username, String password) {
+	public User authenticateUser(String email, String password) {
 		// TODO Auto-generated method stub
 		
-		if(username == null || username.trim().equals("") || password == null || password.trim().equals("")) {
+		if(email == null || email.trim().equals("") || password == null || password.trim().equals("")) {
+			
+			
 			//throw new InvalidRequestException("Either username or password is an invalid entry. Please try logging in again");
 		}
 		
-		User authenticatedUser = userDAO.findByUsernameAndPassword(username, password);
+		User authenticatedUser = userDAO.findByUsernameAndPassword(email, password);
 		
 		if(authenticatedUser == null) {
 			//throw new AuthenticationException("Unauthenticated user, information provided was not found in our database.");
 		}
 		return authenticatedUser;
 	}
+	
+	
 }

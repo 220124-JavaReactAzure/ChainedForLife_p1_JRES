@@ -88,12 +88,12 @@ public class UserDAO {
 
 	
 
-	public User findByUsernameAndPassword(String username, String password) {
+	public User findByUsernameAndPassword(String email, String password) {
 		// TODO Auto-generated method stub
 		Session session;
 		try {
 			session = HibernateUtil.getSession();
-			User user = session.get(User.class, username);
+			User user = session.get(User.class, email);
 			
 			
 			return user;

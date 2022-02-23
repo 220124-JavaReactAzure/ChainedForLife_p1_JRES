@@ -26,6 +26,7 @@ import com.revature.wedding_planner.services.UserService;
 import com.revature.wedding_planner.services.UserTypeService;
 import com.revature.wedding_planner.services.WeddingService;
 import com.revature.wedding_planner.web.servlets.AttendeeServlet;
+import com.revature.wedding_planner.web.servlets.AuthServlet;
 import com.revature.wedding_planner.web.servlets.DinnerTypeServlet;
 import com.revature.wedding_planner.web.servlets.PlusOneServlet;
 import com.revature.wedding_planner.web.servlets.RentedResourceServlet;
@@ -82,9 +83,9 @@ public class ContextLoaderListener implements ServletContextListener{
         PlusOneService plusOneService = new PlusOneService(plusOneDAO);
         PlusOneServlet plusOneServlet = new PlusOneServlet(plusOneService, mapper);	
 		
-        
+        TestServlet testServlet = new TestServlet();
         //TODO Looks like this needs to be uploaded. My ide ain't finding it
-        //AuthServlet authServlet = new AuthServlet(userService, mapper);
+        AuthServlet authServlet = new AuthServlet(userService, mapper);
  
         
 		ServletContext context = sce.getServletContext();
@@ -95,9 +96,10 @@ public class ContextLoaderListener implements ServletContextListener{
 		context.addServlet("ResourceTypeServlet", resourceTypeServlet).addMapping("/resourceType/*");
 		context.addServlet("ResourceServlet", resourceServlet).addMapping("/resource/*");
 		context.addServlet("RentedResourceServlet", rentedResourceServlet).addMapping("/rentedResource/*");
-		//context.addServlet("AuthServlet" , authServlet).addMapping("/auth");
+		context.addServlet("AuthServlet" , authServlet).addMapping("/auth");
 		context.addServlet("Attendee", attendeeServlet).addMapping("/attendee/*");
 		context.addServlet("PlusOne", plusOneServlet).addMapping("/plusOne/*");
+		context.addServlet("TestServlet", testServlet).addMapping("/test");
 		
 	}
 	
