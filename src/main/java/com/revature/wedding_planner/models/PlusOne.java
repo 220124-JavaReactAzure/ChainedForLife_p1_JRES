@@ -2,10 +2,15 @@ package com.revature.wedding_planner.models;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -15,70 +20,85 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name= "weddings")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+		property = "id",
+		scope=PlusOne.class)
 public class PlusOne {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //Serial in SQL
+	@Column(name = "plus_one_id")
+	private int id;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "attendee_id", nullable = false)
-	private int attendeeID;
+	private Attendee attendee;
 	
-	@Id
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="Wedding_id", nullable = false)
-	private int weddingID;
+	private Wedding wedding;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="dinner_type_id", nullable = false)
-	private int dinnerTypeID;
+	private DinnerType dinnerType;
 	
 	// Constructors
 
 	public PlusOne() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public PlusOne(int attendeeID, int weddingID, int dinnerTypeID) {
+	public PlusOne(int id, Attendee attendee, Wedding wedding, DinnerType dinnerType) {
 		super();
-		this.attendeeID = attendeeID;
-		this.weddingID = weddingID;
-		this.dinnerTypeID = dinnerTypeID;
+		this.id = id;
+		this.attendee = attendee;
+		this.wedding = wedding;
+		this.dinnerType = dinnerType;
 	}
 	
 	// Getters and Setters
 
-	public int getAttendeeID() {
-		return attendeeID;
+	public int getId() {
+		return id;
 	}
 
-	public void setAttendeeID(int attendeeID) {
-		this.attendeeID = attendeeID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getWeddingID() {
-		return weddingID;
+	public Attendee getAttendee() {
+		return attendee;
 	}
 
-	public void setWeddingID(int weddingID) {
-		this.weddingID = weddingID;
+	public void setAttendee(Attendee attendee) {
+		this.attendee = attendee;
 	}
 
-	public int getDinnerTypeID() {
-		return dinnerTypeID;
+	public Wedding getWedding() {
+		return wedding;
 	}
 
-	public void setDinnerTypeID(int dinnerTypeID) {
-		this.dinnerTypeID = dinnerTypeID;
+	public void setWedding(Wedding wedding) {
+		this.wedding = wedding;
+	}
+
+	public DinnerType getDinnerType() {
+		return dinnerType;
+	}
+
+	public void setDinnerType(DinnerType dinnerType) {
+		this.dinnerType = dinnerType;
 	}
 	
 	// Methods
 
 	@Override
 	public String toString() {
-		return "PlusOne [attendeeID=" + attendeeID + ", weddingID=" + weddingID + ", dinnerTypeID=" + dinnerTypeID
+		return "PlusOne [id=" + id + ", attendee=" + attendee + ", wedding=" + wedding + ", dinnerType=" + dinnerType
 				+ "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(attendeeID, dinnerTypeID, weddingID);
+		return Objects.hash(attendee, dinnerType, id, wedding);
 	}
 
 	@Override
@@ -90,8 +110,9 @@ public class PlusOne {
 		if (getClass() != obj.getClass())
 			return false;
 		PlusOne other = (PlusOne) obj;
-		return attendeeID == other.attendeeID && dinnerTypeID == other.dinnerTypeID && weddingID == other.weddingID;
+		return Objects.equals(attendee, other.attendee) && Objects.equals(dinnerType, other.dinnerType)
+				&& id == other.id && Objects.equals(wedding, other.wedding);
 	}
-	
+
 	
 }

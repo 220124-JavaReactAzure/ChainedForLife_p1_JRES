@@ -40,10 +40,9 @@ public class Wedding {
 	
 	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
 	private List<RentedResource> rentedResources;
-//	
-//	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
-//	@JsonIgnoreProperties(value="wedding")
-//	private List<Attendee> attendees;
+	
+	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
+	private List<Attendee> attendees;
 	
 	// Constructors
 	
