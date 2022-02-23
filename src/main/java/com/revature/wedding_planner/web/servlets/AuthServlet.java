@@ -31,12 +31,15 @@ public class AuthServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		
 		try {
+			
+			// demo video week 2 recording 2
 			LoginCredentials loginCredentials = mapper.readValue(req.getInputStream(), LoginCredentials.class);
 			User authenticatedUser = userService.authenticateUser(loginCredentials.getUsername(), loginCredentials.getPassword());
 		
 			HttpSession httpSession = req.getSession(false); //direct paths  if not loggin return null
+			
 			httpSession.setAttribute("authUser", authenticatedUser);
-		} catch (InvalidRequestException | UnrecognizedPropertyException e ) {
+		} catch (InvalidRequestException e) {
 			resp.setStatus(400);
 		} catch (AuthenticationException e) {
 			resp.setStatus(401);
