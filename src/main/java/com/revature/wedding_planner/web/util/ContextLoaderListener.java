@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.revature.wedding_planner.dao.AttendeeDAO;
 import com.revature.wedding_planner.dao.DinnerTypeDAO;
+import com.revature.wedding_planner.dao.PlusOneDAO;
 import com.revature.wedding_planner.dao.RentedResourceDAO;
 import com.revature.wedding_planner.dao.ResourceDAO;
 import com.revature.wedding_planner.dao.ResourceTypeDAO;
@@ -17,6 +18,7 @@ import com.revature.wedding_planner.dao.UserTypeDAO;
 import com.revature.wedding_planner.dao.WeddingDAO;
 import com.revature.wedding_planner.services.AttendeeService;
 import com.revature.wedding_planner.services.DinnerTypeService;
+import com.revature.wedding_planner.services.PlusOneService;
 import com.revature.wedding_planner.services.RentedResourceService;
 import com.revature.wedding_planner.services.ResourceService;
 import com.revature.wedding_planner.services.ResourceTypeService;
@@ -24,8 +26,8 @@ import com.revature.wedding_planner.services.UserService;
 import com.revature.wedding_planner.services.UserTypeService;
 import com.revature.wedding_planner.services.WeddingService;
 import com.revature.wedding_planner.web.servlets.AttendeeServlet;
-import com.revature.wedding_planner.web.servlets.AuthServlet;
 import com.revature.wedding_planner.web.servlets.DinnerTypeServlet;
+import com.revature.wedding_planner.web.servlets.PlusOneServlet;
 import com.revature.wedding_planner.web.servlets.RentedResourceServlet;
 import com.revature.wedding_planner.web.servlets.ResourceServlet;
 import com.revature.wedding_planner.web.servlets.ResourceTypeServlet;
@@ -74,10 +76,15 @@ public class ContextLoaderListener implements ServletContextListener{
 		
         AttendeeDAO attendeeDAO = new AttendeeDAO();
         AttendeeService attendeeService = new AttendeeService(attendeeDAO);
-        AttendeeServlet attendeeServlet = new AttendeeServlet(attendeeService, mapper);	
+        AttendeeServlet attendeeServlet = new AttendeeServlet(attendeeService, mapper);
+        
+        PlusOneDAO plusOneDAO = new PlusOneDAO();
+        PlusOneService plusOneService = new PlusOneService(plusOneDAO);
+        PlusOneServlet plusOneServlet = new PlusOneServlet(plusOneService, mapper);	
 		
         
-        AuthServlet authServlet = new AuthServlet(userService, mapper);
+        //TODO Looks like this needs to be uploaded. My ide ain't finding it
+        //AuthServlet authServlet = new AuthServlet(userService, mapper);
  
         
 		ServletContext context = sce.getServletContext();
@@ -88,8 +95,9 @@ public class ContextLoaderListener implements ServletContextListener{
 		context.addServlet("ResourceTypeServlet", resourceTypeServlet).addMapping("/resourceType/*");
 		context.addServlet("ResourceServlet", resourceServlet).addMapping("/resource/*");
 		context.addServlet("RentedResourceServlet", rentedResourceServlet).addMapping("/rentedResource/*");
-		context.addServlet("AuthServlet" , authServlet).addMapping("/auth");
+		//context.addServlet("AuthServlet" , authServlet).addMapping("/auth");
 		context.addServlet("Attendee", attendeeServlet).addMapping("/attendee/*");
+		context.addServlet("PlusOne", plusOneServlet).addMapping("/plusOne/*");
 		
 	}
 	

@@ -9,7 +9,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.revature.wedding_planner.models.Attendee;
 import com.revature.wedding_planner.models.DinnerType;
+import com.revature.wedding_planner.models.PlusOne;
 import com.revature.wedding_planner.models.RentedResource;
 import com.revature.wedding_planner.models.Resource;
 import com.revature.wedding_planner.models.ResourceType;
@@ -38,6 +40,8 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(ResourceType.class);
 			configuration.addAnnotatedClass(Resource.class);
 			configuration.addAnnotatedClass(RentedResource.class);
+			configuration.addAnnotatedClass(Attendee.class);
+			configuration.addAnnotatedClass(PlusOne.class);
 			
 			// ServiceRegistry
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
