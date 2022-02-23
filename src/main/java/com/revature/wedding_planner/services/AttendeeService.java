@@ -22,7 +22,11 @@ public class AttendeeService {
 		}
 		
 		public Attendee addAttendee(Attendee attendee) {
-			//log
+			if(attendee.getId() <= 0) return null;
+			if(attendee.getUser() == null) return null;
+			if(attendee.getWedding() == null) return null;
+			if(attendee.getDinnerType() == null) return null;
+			
 			return attendeeDAO.addAttendee(attendee);
 		}
 		
@@ -41,7 +45,11 @@ public class AttendeeService {
 		}
 
 		public void updateAttendeeWithSessionMethod(Attendee attendee) {
-			// TODO Auto-generated method stub
+			if(attendee.getId() <= 0) return;
+			else if(attendee.getUser() == null) return;
+			else if(attendee.getWedding() == null) return;
+			else if(attendee.getDinnerType() == null) return;
+			
 			attendeeDAO.updateAttendeeWithSessionMethod(attendee);
 		}
 }
