@@ -45,7 +45,11 @@ public class AttendeeService {
 		}
 
 		public void updateAttendeeWithSessionMethod(Attendee attendee) {
-			// TODO Auto-generated method stub
+			if(attendee.getId() <= 0) return;
+			else if(attendee.getUser() == null) return;
+			else if(attendee.getWedding() == null) return;
+			else if(attendee.getDinnerType() == null) return;
+			
 			attendeeDAO.updateAttendeeWithSessionMethod(attendee);
 		}
 }
