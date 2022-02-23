@@ -21,7 +21,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name= "rented_resources")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+		property = "id",
+		scope=RentedResource.class)
 public class RentedResource {
 	
 	@Id
@@ -31,11 +32,11 @@ public class RentedResource {
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="resource_id")
-	private Resource resourceID;
+	private Resource resource;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="wedding_id", nullable = false)
-	private Wedding weddingID;
+	private Wedding wedding;
 	
 	@Column(name="date_rented")
 	private Date dateRented;
@@ -46,29 +47,38 @@ public class RentedResource {
 		super();
 	}
 
-	public RentedResource(Resource resourceID, Wedding weddingID, Date dateRented) {
+	public RentedResource(int id, Resource resource, Wedding wedding, Date dateRented) {
 		super();
-		this.resourceID = resourceID;
-		this.weddingID = weddingID;
+		this.id = id;
+		this.resource = resource;
+		this.wedding = wedding;
 		this.dateRented = dateRented;
 	}
 	
 	// Getters and Setters
-
-	public Resource getResourceID() {
-		return resourceID;
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setResourceID(Resource resourceID) {
-		this.resourceID = resourceID;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Resource getResource() {
+		return resource;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
 	}
 
 	public Wedding getWedding() {
-		return weddingID;
+		return wedding;
 	}
 
-	public void setWedding(Wedding weddingID) {
-		this.weddingID = weddingID;
+	public void setWedding(Wedding wedding) {
+		this.wedding = wedding;
 	}
 
 	public Date getDateRented() {
@@ -83,12 +93,13 @@ public class RentedResource {
 
 	@Override
 	public String toString() {
-		return "RentedResource [resourceID=" + resourceID + ", weddingID=" + weddingID + ", dateRented=" + dateRented + "]";
+		return "RentedResource [id=" + id + ", resource=" + resource + ", wedding=" + wedding + ", dateRented="
+				+ dateRented + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateRented, resourceID, weddingID);
+		return Objects.hash(dateRented, id, resource, wedding);
 	}
 
 	@Override
@@ -100,8 +111,8 @@ public class RentedResource {
 		if (getClass() != obj.getClass())
 			return false;
 		RentedResource other = (RentedResource) obj;
-		return Objects.equals(dateRented, other.dateRented) && resourceID == other.resourceID
-				&& Objects.equals(weddingID, other.weddingID);
+		return Objects.equals(dateRented, other.dateRented) && id == other.id
+				&& Objects.equals(resource, other.resource) && Objects.equals(wedding, other.wedding);
 	}
 	
 }

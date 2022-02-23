@@ -20,22 +20,25 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name= "attendees")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+		property = "id",
+		scope=Attendee.class)
 public class Attendee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Serial in SQL
 	@Column(name = "attendee_id")
 	private int id;
 	
-	@JoinColumn(name = "user_id")
-	private int userID;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="wedding_id", nullable = false)
 	private Wedding wedding;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="dinner_type_id", nullable = false)
-	private int dinnerTypeID;
+	private DinnerType dinnerType;
 	
 	@Column(name="is_going")
 	private boolean isGoing;
@@ -50,12 +53,12 @@ public class Attendee {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Attendee(int id, int userID, Wedding wedding, int dinnerTypeID, boolean isGoing, boolean isBringingPlusOne) {
+	public Attendee(int id, User user, Wedding wedding, DinnerType dinnerType, boolean isGoing, boolean isBringingPlusOne) {
 		super();
 		this.id = id;
-		this.userID = userID;
+		this.user = user;
 		this.wedding = wedding;
-		this.dinnerTypeID = dinnerTypeID;
+		this.dinnerType = dinnerType;
 		this.isGoing = isGoing;
 		this.isBringingPlusOne = isBringingPlusOne;
 	}
@@ -70,12 +73,12 @@ public class Attendee {
 		this.id = id;
 	}
 
-	public int getUserID() {
-		return userID;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Wedding getWedding() {
@@ -86,12 +89,12 @@ public class Attendee {
 		this.wedding = wedding;
 	}
 
-	public int getDinnerTypeID() {
-		return dinnerTypeID;
+	public DinnerType getDinnerType() {
+		return dinnerType;
 	}
 
-	public void setDinnerTypeID(int dinnerTypeID) {
-		this.dinnerTypeID = dinnerTypeID;
+	public void setDinnerType(DinnerType dinnerType) {
+		this.dinnerType = dinnerType;
 	}
 
 	public boolean isGoing() {
@@ -114,13 +117,13 @@ public class Attendee {
 
 	@Override
 	public String toString() {
-		return "Attendee [id=" + id + ", userID=" + userID + ", wedding=" + wedding + ", dinnerTypeID=" + dinnerTypeID
+		return "Attendee [id=" + id + ", user=" + user + ", wedding=" + wedding + ", dinnerType=" + dinnerType
 				+ ", isGoing=" + isGoing + ", isBringingPlusOne=" + isBringingPlusOne + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dinnerTypeID, id, isBringingPlusOne, isGoing, userID, wedding);
+		return Objects.hash(dinnerType, id, isBringingPlusOne, isGoing, user, wedding);
 	}
 
 	@Override
@@ -132,11 +135,8 @@ public class Attendee {
 		if (getClass() != obj.getClass())
 			return false;
 		Attendee other = (Attendee) obj;
-		return dinnerTypeID == other.dinnerTypeID && id == other.id && isBringingPlusOne == other.isBringingPlusOne
-				&& isGoing == other.isGoing && userID == other.userID && Objects.equals(wedding, other.wedding);
+		return dinnerType == other.dinnerType && id == other.id && isBringingPlusOne == other.isBringingPlusOne
+				&& isGoing == other.isGoing && user == other.user && Objects.equals(wedding, other.wedding);
 	}
-
-	
-	
 	
 }

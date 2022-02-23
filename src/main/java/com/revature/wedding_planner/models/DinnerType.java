@@ -1,13 +1,19 @@
 package com.revature.wedding_planner.models;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -16,7 +22,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name= "dinner_types")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+		property = "id",
+		scope=DinnerType.class)
 public class DinnerType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Serial in SQL
@@ -25,6 +32,14 @@ public class DinnerType {
 	
 	@Column(name = "dinner_type_name", unique = true, nullable = false)
 	private String name;
+	
+	@OneToMany(mappedBy="dinnerType")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Attendee> attendee;
+	
+	@OneToMany(mappedBy="dinnerType")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<PlusOne> plusOne;
 	
 	// Constructors
 	

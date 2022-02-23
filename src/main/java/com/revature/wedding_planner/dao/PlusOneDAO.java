@@ -33,7 +33,7 @@ public class PlusOneDAO {
 		}
 	}
 
-	public List<PlusOne> getPlusOnes() {
+	public List<PlusOne> getAllPlusOnes() {
 		try {
 			
 			Session session = HibernateUtil.getSession();
@@ -88,7 +88,7 @@ public class PlusOneDAO {
 			String hql = "delete from plusone where plusone_id = ?";
 			
 			Query q = session.createQuery(hql);
-			q.setParameter("plusone_id", plusOne.getAttendeeID());
+			q.setParameter("plus_one_id", plusOne.getAttendee());
 			q.executeUpdate();
 			
 			return true;

@@ -16,9 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -26,7 +23,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name= "resources")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+		property = "id",
+		scope=Resource.class)
 public class Resource {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Serial in SQL
@@ -46,7 +44,7 @@ public class Resource {
 	@Column(name = "resource_cost")
 	private int cost;
 	
-	@OneToMany(mappedBy="resourceID", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resource", fetch=FetchType.EAGER)
 	private List<RentedResource> rentedResourceIDs;
 	
 	// Constructors
