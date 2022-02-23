@@ -50,6 +50,10 @@ public class User {
 	@NotFound(action=NotFoundAction.IGNORE)
 	private Wedding wedding;
 	
+	@OneToOne(mappedBy="user")
+	@NotFound(action=NotFoundAction.IGNORE)
+	private Attendee attendee;
+	
 	// Constructors
 	
 	public User() {

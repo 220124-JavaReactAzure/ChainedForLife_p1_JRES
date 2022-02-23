@@ -28,7 +28,8 @@ public class Attendee {
 	@Column(name = "attendee_id")
 	private int id;
 	
-	@JoinColumn(name = "user_id")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

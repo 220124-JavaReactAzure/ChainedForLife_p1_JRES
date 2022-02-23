@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -38,10 +40,12 @@ public class Wedding {
 	@NotFound(action=NotFoundAction.IGNORE)
 	private User userID;
 	
-	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="wedding")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<RentedResource> rentedResources;
 	
-	@OneToMany(mappedBy="wedding", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="wedding")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Attendee> attendees;
 	
 	// Constructors
