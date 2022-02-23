@@ -26,7 +26,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name= "users")
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id")
+		property = "id",
+		scope=User.class)
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Serial in SQL
