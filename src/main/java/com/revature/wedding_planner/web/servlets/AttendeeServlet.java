@@ -22,7 +22,7 @@ public class AttendeeServlet extends HttpServlet{
 	
 	@Override
 	public void init() throws ServletException {
-		System.out.println("Init has been called for AttendeeServlet");
+		System.out.println("Init has been called for Attendee Servlet");
 	}
 	
 	
@@ -37,49 +37,45 @@ public class AttendeeServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String path = req.getPathInfo();
-		
 		PrintWriter writer = resp.getWriter();
-		
-		if(path == null) {
-			List<Attendee> attendees = attendeeService.getAllAttendees();
-			
-			String payload = mapper.writeValueAsString(attendees);
-			
-			writer.write(payload);
-			
-			resp.setStatus(200);
-		} else if(path == "/ID") {
-			
+
+		String path = req.getPathInfo();
+		if (path == null)
+			path = "";
+		switch (path) {
+
+		case "/ID":
 			try {
-				
-			String idParam = req.getParameter("attendeeID");
-			
-			resp.setStatus(400);
-			
-			writer.write("Please the query ?attendeeID=# in your url");
-			
-			int attendeeID = Integer.valueOf(idParam);
-			
-			Attendee attendee = attendeeService.getAttendeeByID(attendeeID);
-			
-			if(attendee == null) {
-				resp.setStatus(500);
-				return;
-			}
-			
-			String payload = mapper.writeValueAsString(attendee);
-			
-			writer.write(payload);
-			resp.setStatus(200);
+				String idParam = req.getParameter("attendeeID");
+				if (idParam == null) {
+					resp.setStatus(400);
+					writer.write("Please include the query ?attendeeID=# in your url");
+					return;
+				}
+
+				int attendeeID = Integer.valueOf(idParam);
+
+				Attendee attendee = attendeeService.getAttendeeByID(attendeeID);
+				if (attendee == null) {
+					resp.setStatus(500);
+					return;
+				}
+
+				String payload = mapper.writeValueAsString(attendee);
+				writer.write(payload);
+				resp.setStatus(200);
 			} catch (StreamReadException | DatabindException e) {
 				resp.setStatus(400);
 			}
+			break;
+
+		default:
+			List<Attendee> attendees = attendeeService.getAllAttendees();
+			String payload = mapper.writeValueAsString(attendees);
+			writer.write(payload);
+			resp.setStatus(200);
+			break;
 		}
-		
-		
-		
 	}
 	
 	@Override
@@ -135,6 +131,6 @@ public class AttendeeServlet extends HttpServlet{
 
 	@Override
 	public void destroy() {
-		System.out.println("TestServlet Destroyer");
+		System.out.println("Attendee Servlet Destroyer");
 	}
 }
