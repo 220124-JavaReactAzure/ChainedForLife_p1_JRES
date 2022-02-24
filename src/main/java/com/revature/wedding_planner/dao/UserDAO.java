@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,6 +20,7 @@ import com.revature.wedding_planner.util.HibernateUtil;
 
 public class UserDAO {
 
+	private final Logger logger = LogManager.getRootLogger();
 	public boolean addUser(User user) {
 		try {
 			Session session = HibernateUtil.getSession();		
@@ -50,6 +53,19 @@ public class UserDAO {
 		try {
 			Session session = HibernateUtil.getSession();
 			User user = session.get(User.class, id);
+			return user;
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+	
+	public User getUserByEmail(String email) {
+		try {
+			Session session = HibernateUtil.getSession();
+			User user = session.get(User.class, email);
 			return user;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
@@ -109,7 +125,7 @@ public class UserDAO {
 			Session session = HibernateUtil.getSession();
 			User user = new User();
 			
-			hql = "FROM User email:email and password=:password";
+			hql = "FROM Users email:email and password=:password";
 			
 			
 			Query query = session.createQuery(hql);

@@ -6,6 +6,8 @@ import org.hibernate.Transaction;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 
 import com.revature.wedding_planner.models.RentedResource;
@@ -14,6 +16,8 @@ import com.revature.wedding_planner.util.HibernateUtil;
 
 public class RentedResourceDAO {
 
+	private final Logger logger = LogManager.getRootLogger();
+	
 		public boolean addRentedResource(RentedResource rentedResource) {
 			try {
 				Session session = HibernateUtil.getSession();
