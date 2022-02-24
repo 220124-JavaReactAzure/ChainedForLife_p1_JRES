@@ -14,6 +14,8 @@ public class ResourceTypeService {
 	}
 	
 	public boolean addResourceType(ResourceType resourceType) {
+		if(resourceType.getId() <= 0) return false;
+		else if(resourceType.getName().isEmpty()) return false;
 		return resourceTypeDAO.addResourceType(resourceType);
 	}
 	
