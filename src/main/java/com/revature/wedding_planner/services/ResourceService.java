@@ -1,5 +1,6 @@
 package com.revature.wedding_planner.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.revature.wedding_planner.dao.ResourceDAO;
@@ -14,6 +15,8 @@ public class ResourceService {
 	}
 	
 	public boolean addResource(Resource resource) {
+		if(resource.getDateAvailableStart() == null) return false;
+		if(resource.getDateAvailableEnd() == null) return false;
 		return resourceDAO.addResource(resource);
 	}
 	
