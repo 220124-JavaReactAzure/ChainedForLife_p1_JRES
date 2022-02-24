@@ -1,11 +1,17 @@
 package com.revature.wedding_planner.dao;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.postgresql.core.ConnectionFactory;
 
 import com.revature.wedding_planner.models.User;
 import com.revature.wedding_planner.util.HibernateUtil;
@@ -88,13 +94,29 @@ public class UserDAO {
 
 	
 
+	@SuppressWarnings("deprecation")
 	public User findByUsernameAndPassword(String email, String password) {
-		// TODO Auto-generated method stub
-		Session session;
+		
+
+		
+		
+//		Session session;
 		try {
-			session = HibernateUtil.getSession();
-			User user = session.get(User.class, email);
 			
+			//logger.info("Finding email and password");
+			
+			String hql = "";
+			Session session = HibernateUtil.getSession();
+			User user = new User();
+			
+			hql = "FROM User email:email and password=:password";
+			
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("email", email);
+			query.setParameter("password", password);
+			
+			user = (User)query.uniqueResult();
 			
 			return user;
 		} catch (IOException e) {
@@ -102,6 +124,25 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return null;
+		
+//		boolean isValid = false;
+//		
+//		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+//			
+//			String sql = "select * from users where email = ? and password = ?";
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, email);
+//			pstmt.setString(2, password);
+//			ResultSet rs = pstmt.executeQuery();
+//
+//	
+//			isValid = rs.next();
+//		} catch (SQLException e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			return isValid;
+//		}
+		
 		
 		
 	}

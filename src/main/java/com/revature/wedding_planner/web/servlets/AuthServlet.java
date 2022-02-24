@@ -57,7 +57,7 @@ public class AuthServlet extends HttpServlet{
 		String userp = req.getParameter("password");
 		
 		
-		if(userService.authenticateUser(usern, userp) != null) {
+		if(userService.authenticateUser(usern, userp)) {
 			RequestDispatcher rd = req.getRequestDispatcher("user");
 			rd.forward(req, resp);
 			
