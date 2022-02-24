@@ -22,7 +22,6 @@ public class AttendeeService {
 		}
 		
 		public Attendee addAttendee(Attendee attendee) {
-			if(attendee.getId() <= 0) return null;
 			if(attendee.getUser() == null) return null;
 			if(attendee.getWedding() == null) return null;
 			if(attendee.getDinnerType() == null) return null;
