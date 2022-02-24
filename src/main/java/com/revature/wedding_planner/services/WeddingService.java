@@ -17,6 +17,8 @@ public class WeddingService {
 	}
 
 	public boolean addWedding(Wedding wedding) {
+		if(wedding.getId() <= 0) return false;
+		if(wedding.getUserID() == null) return false;
 		return weddingDAO.addWedding(wedding);
 	}
 
