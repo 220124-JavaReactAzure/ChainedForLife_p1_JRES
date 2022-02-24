@@ -13,6 +13,10 @@ public class PlusOneService {
 	}
 
 	public boolean addPlusOne(PlusOne plusOne) {
+		if(plusOne.getId() <= 0) return false;
+		if(plusOne.getAttendee() == null) return false;
+		if(plusOne.getWedding() == null) return false;
+		if(plusOne.getDinnerType() == null) return false;
 		return plusOneDAO.addPlusOne(plusOne);
 	}
 
