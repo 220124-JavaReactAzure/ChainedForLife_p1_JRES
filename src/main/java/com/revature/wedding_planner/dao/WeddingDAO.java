@@ -84,7 +84,7 @@ public class WeddingDAO {
 			Session session = HibernateUtil.getSession();
 
 			// deletion query
-			String hql = "delete from attendee where attendee_id = ?";
+			String hql = "DELETE FROM Wedding WHERE id = :wedding_id";
 
 			Query q = session.createQuery(hql);
 			q.setParameter("wedding_id", wedding.getId());
