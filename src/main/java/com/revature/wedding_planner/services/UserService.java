@@ -14,6 +14,11 @@ public class UserService {
 	}
 	
 	public boolean addUser(User user) {
+		if(user.getId() <= 0) return false;
+		if(user.getName() == "") return false;
+		if(user.getEmail() == "") return false;
+		if(user.getPassword() == "") return false;
+		if(user.getType() == null) return false;
 		return userDAO.addUser(user);
 	}
 	
