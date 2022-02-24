@@ -13,6 +13,9 @@ public class RentedResourceService {
 	}
 
 	public boolean addRentedResource(RentedResource rentedResource) {
+		if(rentedResource.getId() <= 0) return false;
+		if(rentedResource.getResource() == null) return false;
+		if(rentedResource.getWedding() == null) return false;
 		return rentedResourceDAO.addRentedResource(rentedResource);
 	}
 
