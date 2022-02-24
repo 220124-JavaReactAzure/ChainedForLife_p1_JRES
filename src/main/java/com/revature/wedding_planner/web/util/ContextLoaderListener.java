@@ -57,7 +57,7 @@ public class ContextLoaderListener implements ServletContextListener{
 		
 		UserDAO userDAO = new UserDAO();
 		UserService userService = new UserService(userDAO);
-		UserServlet userServlet = new UserServlet(userService, mapper);
+		UserServlet userServlet = new UserServlet(userService, userTypeService, mapper);
 		
 		WeddingDAO weddingDAO = new WeddingDAO();
 		WeddingService weddingService = new WeddingService(weddingDAO);

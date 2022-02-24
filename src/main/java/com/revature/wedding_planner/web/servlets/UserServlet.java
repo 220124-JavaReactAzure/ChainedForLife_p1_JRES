@@ -13,14 +13,18 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.wedding_planner.models.User;
+import com.revature.wedding_planner.models.UserType;
 import com.revature.wedding_planner.services.UserService;
+import com.revature.wedding_planner.services.UserTypeService;
 
 public class UserServlet extends HttpServlet {
 	private final UserService userService;
+	private final UserTypeService userTypeService;
 	private final ObjectMapper mapper;
 
-	public UserServlet(UserService userService, ObjectMapper mapper) {
+	public UserServlet(UserService userService, UserTypeService userTypeService, ObjectMapper mapper) {
 		this.userService = userService;
+		this.userTypeService = userTypeService;
 		this.mapper = mapper;
 	}
 
@@ -70,23 +74,84 @@ public class UserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
-		try {
-			User newUser = mapper.readValue(req.getInputStream(), User.class);
-			boolean wasRegistered = userService.addUser(newUser);
-			if (wasRegistered) {
-				resp.setStatus(201);
-			} else {
+		PrintWriter writer = resp.getWriter();
+		String path = req.getPathInfo();
+
+		if (path == null)
+			path = "";
+
+		switch (path) {
+		case "/register":
+			try {
+				String name = req.getParameter("name");
+				if (name == null) {
+					resp.setStatus(400);
+					writer.write("Please insert a valid name");
+					return;
+				}
+
+				String email = req.getParameter("email");
+				if (email == null) {
+					resp.setStatus(400);
+					writer.write("Please insert a valid email");
+					return;
+				}
+
+				String password = req.getParameter("password");
+				if (password == null) {
+					resp.setStatus(400);
+					writer.write("Please insert a valid password");
+				}
+
+				String typeParam = req.getParameter("userTypes");
+				if (typeParam == null) {
+					resp.setStatus(400);
+					writer.write("Please insert a valid userType");
+				}
+				int typeId = Integer.valueOf(typeParam);
+				UserType type = userTypeService.getUserTypeByID(typeId);
+
+				User newUser = new User(name, email, password, type);
+				
+				boolean wasRegistered = userService.addUser(newUser);
+				
+				if (wasRegistered) {
+					resp.setStatus(201);
+				} else {
+					resp.setStatus(500);
+					resp.getWriter().write("Database did not persist");
+				}
+				
+			} catch (StreamReadException | DatabindException e) {
+				resp.setStatus(400);
+				resp.getWriter().write("JSON threw exception");
+				e.printStackTrace();
+			} catch (Exception e) {
 				resp.setStatus(500);
-				resp.getWriter().write("Database did not persist");
+				resp.getWriter().write("Some random exception, data did not persist");
+				e.printStackTrace();
 			}
-		} catch (StreamReadException | DatabindException e) {
-			resp.setStatus(400);
-			resp.getWriter().write("JSON threw exception");
-			e.printStackTrace();
-		} catch (Exception e) {
-			resp.setStatus(500);
-			resp.getWriter().write("Some random exception, data did not persist");
-			e.printStackTrace();
+
+			break;
+		default:
+			try {
+				User newUser = mapper.readValue(req.getInputStream(), User.class);
+				boolean wasRegistered = userService.addUser(newUser);
+				if (wasRegistered) {
+					resp.setStatus(201);
+				} else {
+					resp.setStatus(500);
+					resp.getWriter().write("Database did not persist");
+				}
+			} catch (StreamReadException | DatabindException e) {
+				resp.setStatus(400);
+				resp.getWriter().write("JSON threw exception");
+				e.printStackTrace();
+			} catch (Exception e) {
+				resp.setStatus(500);
+				resp.getWriter().write("Some random exception, data did not persist");
+				e.printStackTrace();
+			}
 		}
 	}
 
