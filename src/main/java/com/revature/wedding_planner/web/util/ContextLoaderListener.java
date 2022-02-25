@@ -69,7 +69,7 @@ public class ContextLoaderListener implements ServletContextListener{
         
 		ResourceDAO resourceDAO = new ResourceDAO();
 		ResourceService resourceService = new ResourceService(resourceDAO);
-		ResourceServlet resourceServlet = new ResourceServlet(resourceService, mapper);
+		ResourceServlet resourceServlet = new ResourceServlet(resourceService, resourceTypeService, mapper);
 		
 		RentedResourceDAO rentedResourceDAO = new RentedResourceDAO();
 		RentedResourceService rentedResourceService = new RentedResourceService(rentedResourceDAO);

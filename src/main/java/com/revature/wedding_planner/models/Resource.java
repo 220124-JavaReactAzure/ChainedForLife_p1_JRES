@@ -62,6 +62,15 @@ public class Resource {
 		this.cost = cost;
 	}
 	
+	public Resource(ResourceType type, Date dateAvailableStart, Date dateAvailableEnd, int cost) {
+		super();
+		this.type = type;
+		this.dateAvailableStart = dateAvailableStart;
+		this.dateAvailableEnd = dateAvailableEnd;
+		this.cost = cost;
+	}
+	
+	
 	// Getters and Setters
 
 	public int getId() {

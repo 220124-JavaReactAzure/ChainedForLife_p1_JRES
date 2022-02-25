@@ -2,7 +2,10 @@ package com.revature.wedding_planner.web.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,14 +16,20 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.wedding_planner.models.Resource;
+import com.revature.wedding_planner.models.ResourceType;
+import com.revature.wedding_planner.models.User;
+import com.revature.wedding_planner.models.UserType;
 import com.revature.wedding_planner.services.ResourceService;
+import com.revature.wedding_planner.services.ResourceTypeService;
 
 public class ResourceServlet extends HttpServlet {
 	private final ResourceService resourceService;
+	private final ResourceTypeService resourceTypeService;
 	private final ObjectMapper mapper;
 
-	public ResourceServlet(ResourceService resourceService, ObjectMapper mapper) {
+	public ResourceServlet(ResourceService resourceService, ResourceTypeService resourceTypeService, ObjectMapper mapper) {
 		this.resourceService = resourceService;
+		this.resourceTypeService = resourceTypeService;
 		this.mapper = mapper;
 	}
 
@@ -70,26 +79,92 @@ public class ResourceServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json");
-		try {
-			Resource newResource = mapper.readValue(req.getInputStream(), Resource.class);
-			boolean wasRegistered = resourceService.addResource(newResource);
-			if (wasRegistered) {
-				resp.setStatus(201);
-			} else {
+		PrintWriter writer = resp.getWriter();
+		String path = req.getPathInfo();
+
+		if (path == null)
+			path = "";
+
+		switch (path) {
+		case "/register":
+			try {
+				SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			    df.setTimeZone(TimeZone.getTimeZone("UTC"));
+				String dateAvailableStart = req.getParameter("dateAvailableStart");
+				if (dateAvailableStart == null) {
+					resp.setStatus(400);
+					writer.write("Alease insert a valid startDate");
+					return;
+				}
+			    Date date1 = Date.valueOf(dateAvailableStart);
+
+				String dateAvailableEnd = req.getParameter("dateAvailableEnd");
+				if (dateAvailableEnd == null) {
+					resp.setStatus(400);
+					writer.write("Blease insert a valid endDate");
+					return;
+				}
+				Date date2 = Date.valueOf(dateAvailableEnd);
+
+				String costString = req.getParameter("cost");
+				if (costString == null) {
+					resp.setStatus(400);
+					writer.write("Clease insert a valid cost");
+				}
+				
+				int cost = Integer.valueOf(costString);
+
+				String typeParam = req.getParameter("resourceTypes");
+				if (typeParam == null) {
+					resp.setStatus(400);
+					writer.write("Dlease insert a valid resourceType");
+				}
+				int typeId = Integer.valueOf(typeParam);
+				ResourceType type = resourceTypeService.getResourceTypeByID(typeId);
+
+				Resource newResource = new Resource(type, date1, date2, cost);
+
+				boolean wasRegistered = resourceService.addResource(newResource);
+
+				if (wasRegistered) {
+					resp.setStatus(201);
+				} else {
+					resp.setStatus(500);
+					resp.getWriter().write("Database did not persist");
+				}
+
+			} catch (StreamReadException | DatabindException e) {
+				resp.setStatus(400);
+				resp.getWriter().write("JSON threw exception");
+				e.printStackTrace();
+			} catch (Exception e) {
 				resp.setStatus(500);
-				resp.getWriter().write("Database did not persist");
+				resp.getWriter().write("Some random exception, data did not persist");
+				e.printStackTrace();
 			}
-		} catch (StreamReadException | DatabindException e) {
-			resp.setStatus(400);
-			resp.getWriter().write("JSON threw exception");
-			e.printStackTrace();
-		} catch (Exception e) {
-			resp.setStatus(500);
-			resp.getWriter().write("Some random exception, data did not persist");
-			e.printStackTrace();
+
+			break;
+		default:
+			try {
+				Resource newResource = mapper.readValue(req.getInputStream(), Resource.class);
+				boolean wasRegistered = resourceService.addResource(newResource);
+				if (wasRegistered) {
+					resp.setStatus(201);
+				} else {
+					resp.setStatus(500);
+					resp.getWriter().write("Database did not persist");
+				}
+			} catch (StreamReadException | DatabindException e) {
+				resp.setStatus(400);
+				resp.getWriter().write("JSON threw exception");
+				e.printStackTrace();
+			} catch (Exception e) {
+				resp.setStatus(500);
+				resp.getWriter().write("Some random exception, data did not persist");
+				e.printStackTrace();
+			}
 		}
 	}
-	
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
