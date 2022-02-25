@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Wedding Planner</title>
+
+	<style>
+		h1 {
+			text-align: center;
+			font-weight: bold;
+			font-size: 100px;
+		}
+
+		h2 {
+			text-align: center;
+		}
+
+		form {
+			text-align: center;
+			font-size: 50px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<h1>ChainedForLife</h1>
+
+	<h2> Wedding Planner Application Add Resource Page</h2>
+
+	<form id="registerForm" name="registerForm">
+		<label for="dateAvailableStart">Day Available:</label>
+		<input type="date" id="dateAvailableStart" name="dateAvailableStart"><br>
+		<label for="dateAvailableEnd">Day No Longer Available:</label>
+		<input type="date" id="dateAvailableEnd" name="dateAvailableEnd"><br>
+		<label for="cost">Cost:</label>
+		<input type="number" id="cost" name="cost"><br>
+		<select id="resourceTypes" name="resourceTypes">
+		</select>
+
+		<input onclick="myFunction()" type="submit" value="Submit">
+	</form>
+
+
+
+	<script src="addResource.js"></script>
+
+</body>
+
+</html>

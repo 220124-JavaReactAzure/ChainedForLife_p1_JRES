@@ -70,6 +70,14 @@ public class User {
 		this.type = type;
 	}
 	
+	public User(String name, String email, String password, UserType type) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.type = type;
+	}
+	
 	// Getters and Setters
 	
 	public int getId() {

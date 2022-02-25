@@ -14,8 +14,7 @@ public class UserTypeService {
 	}
 	
 	public boolean addUserType(UserType userType) {
-		if(userType.getId() <= 0) return false;
-		else if(userType.getName().isEmpty()) return false;
+		if(userType.getName().isEmpty()) return false;
 		return userTypeDAO.addUserType(userType);
 	}
 	
