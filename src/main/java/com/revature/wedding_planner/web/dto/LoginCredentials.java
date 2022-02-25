@@ -3,6 +3,8 @@ package com.revature.wedding_planner.web.dto;
 public class LoginCredentials {
 	private String useremail;
 	private String password;
+	
+	
 	public String getUseremail() {
 		return useremail;
 	}

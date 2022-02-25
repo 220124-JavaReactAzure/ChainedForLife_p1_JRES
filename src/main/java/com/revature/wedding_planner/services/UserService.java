@@ -29,22 +29,19 @@ public class UserService {
 	}
 	
 	public boolean addUser(User user) {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		logger.info("Addinguser");
-=======
+
 		if(user.getId() <= 0) return false;
-=======
->>>>>>> c7ce8f4beed186c9325e5ae56956e4676ed74eee
+
 		if(user.getName() == "") return false;
 		if(user.getEmail() == "") return false;
 		if(user.getPassword() == "") return false;
 		if(user.getType() == null) return false;
-<<<<<<< HEAD
->>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
-=======
+
+
 		logger.info("Addinguser");
->>>>>>> c7ce8f4beed186c9325e5ae56956e4676ed74eee
+
 		return userDAO.addUser(user);
 	}
 	
@@ -74,20 +71,20 @@ public class UserService {
 	}
 
 	//TODO uncomment this when uploaded throw classes
-	public void authenticateUser(String email, String password) {
+	public User authenticateUser(String email) {
 		
 		logger.info("Authenticating user");
 		
-		if(email == null || email.trim().equals("") || password == null || password.trim().equals("")) {
+		if(email == null || email.trim().equals("")) {
 			throw new InvalidRequestException("Either username or password is an invalid entry. Please try logging in again");
 		}
 		
-		User authenticatedUser = userDAO.findByUsernameAndPassword(email, password);
+		User authenticatedUser = userDAO.getUserByEmail(email);
 		
 		if(authenticatedUser == null) {
 			throw new AuthenticationException("Unauthenticated user, information provided was not found in our database.");
 		}
-		sessionUser = authenticatedUser;
+		return authenticatedUser;
 	}
 	
 	

@@ -21,9 +21,6 @@ import com.revature.wedding_planner.util.HibernateUtil;
 
 public class UserDAO {
 
-	private static final User user = null;
-	
-	
 	private final Logger logger = LogManager.getRootLogger();
 	public boolean addUser(User user) {
 		try {
@@ -66,10 +63,10 @@ public class UserDAO {
 		}
 	}
 	
-	public User getUserByEmail(String email) {
+	public User getUserByEmail(String user_email) {
 		try {
 			Session session = HibernateUtil.getSession();
-			User user = session.get(User.class, email);
+			User user = session.get(User.class, user_email);
 			return user;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
@@ -102,8 +99,8 @@ public class UserDAO {
 			Transaction transaction = session.beginTransaction();
 			User deletedUser = this.getUserByID(id);
 			
-			session.delete(deletedUser);
 			transaction.commit();
+			session.delete(deletedUser);
 			
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
@@ -113,31 +110,31 @@ public class UserDAO {
 	}
 
 	
-
-	@SuppressWarnings("deprecation")
-	public User findByUsernameAndPassword(String email, String password) {
-		
-		logger.info("Finding email and password");
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String sql = "select * from users where username = ? and password = ?";
-			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, email);
-			pstmt.setString(2, password);
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				User user = new User();
-				user.setEmail(rs.getString("user_email"));
-			}
-			
-			return user;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+//
+//	@SuppressWarnings("deprecation")
+//	public User findByUsernameAndPassword(String email, String password) {
+//		
+//		logger.info("Finding email and password");
+//		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+//			String sql = "select * from users where username = ? and password = ?";
+//			
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, email);
+//			pstmt.setString(2, password);
+//			
+//			ResultSet rs = pstmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				User user = new User();
+//				user.setEmail(rs.getString(0));
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return null;
 		
 //		Session session;
 //		try {
@@ -166,5 +163,5 @@ public class UserDAO {
 		
 		
 		
-	}
+//	}
 }

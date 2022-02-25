@@ -18,17 +18,15 @@ public class WeddingService {
 	}
 
 	public boolean addWedding(Wedding wedding) {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		logger.info("Wedding added");
-=======
+
 		if(wedding.getId() <= 0) return false;
 		if(wedding.getUserID() == null) return false;
->>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
-=======
+
 		if(wedding.getUserID() == null) return false;
 		logger.info("Wedding added");
->>>>>>> c7ce8f4beed186c9325e5ae56956e4676ed74eee
+
 		return weddingDAO.addWedding(wedding);
 	}
 

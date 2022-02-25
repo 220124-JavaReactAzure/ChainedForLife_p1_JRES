@@ -46,60 +46,36 @@ public class AuthServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
-		
-		//LoginCredentials loginCredentials = mapper.readValue(req.getInputStream(), LoginCredentials.class);
-		PrintWriter out = resp.getWriter();
-		//User user = new User(); 
-		String useremail = req.getParameter("email");
-		String userpassword = req.getParameter("password");
-		//User authenticatedUser = userService.authenticateUser(user.getEmail(), user.getPassword());
-		
-		User authenticatedUser = userService.getUserByUserEmail(useremail);
 	
-		resp.setContentType("text/html");
-		
-		if(authenticatedUser.getType().getId() == 1) {
-			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/test-app/attendee/\">");
+		try {
+
+			LoginCredentials loginCredentials = mapper.readValue(req.getInputStream(), LoginCredentials.class);
 			
-		} else if(authenticatedUser.getType().getId() == 2) {
-			out.println("<meta http-equiv=\"refresh\" content=\"0; URL=http://localhost:8080/test-app/wedding/\">");
+			User user = mapper.readValue(req.getInputStream(), User.class);
 			
+			
+			User authenticatedUser = userService.authenticateUser(user.getEmail());
+		   
+			HttpSession httpSession = req.getSession(true);
+			httpSession.setAttribute("auth", authenticatedUser);
+
+			resp.getWriter().write("<h1> Success </h1>)");
+
+		} catch (InvalidRequestException e) {
+			resp.setStatus(400);
+
+		} catch (AuthenticationException e) {
+			resp.setStatus(401);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// resp.getWriter().write("<h1> Sorry Failed to Login Server Error 500 </h1>");
+
+			User authenticatedUser = userService.getUserByUserEmail("ro@gmail.com");
+			resp.getWriter().write(authenticatedUser.getType().getId());
+			resp.setStatus(500);
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 //		try {
 //			
@@ -124,9 +100,9 @@ public class AuthServlet extends HttpServlet{
 //			
 //			
 //			
-//			//User authenticatedUser = userService.authenticateUser(loginCredentials.getUseremail(), loginCredentials.getPassword());
-//			//HttpSession httpSession = req.getSession(true);
-//			//httpSession.setAttribute("auth", authenticatedUser);
+//			User authenticatedUser = userService.authenticateUser(loginCredentials.getUseremail(), loginCredentials.getPassword());
+//			HttpSession httpSession = req.getSession(true);
+//			httpSession.setAttribute("auth", authenticatedUser);
 //			
 //			resp.getWriter().write("<h1> Success </h1>)");
 //			
