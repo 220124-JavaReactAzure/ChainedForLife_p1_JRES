@@ -16,12 +16,13 @@ public class AttendeeService {
 	private final Logger logger = LogManager.getRootLogger();
 	
 		public AttendeeService(AttendeeDAO attendeeDAO) {
-			//log
+			logger.debug("AttendeeService initiated");
 			this.attendeeDAO = attendeeDAO;
 			
 		}
 		
 		public Attendee addAttendee(Attendee attendee) {
+			logger.debug("Added attendee");
 			if(attendee.getUser() == null) return null;
 			if(attendee.getWedding() == null) return null;
 			if(attendee.getDinnerType() == null) return null;
@@ -31,19 +32,23 @@ public class AttendeeService {
 		
 		public List<Attendee> getAllAttendees() {
 			//log not set jet
+			logger.debug("Getting All Attendees initialized");
 			return attendeeDAO.getAllAttendees();
 		}
 		
 		public Attendee getAttendeeByID(int id) {
+			logger.debug("Getting Attendees By Id");
 			return attendeeDAO.getAttendeeById(id);
 		}
 		
 		// TODO implement this in DAO
 		public void deleteAttendee(Attendee id) {
+			logger.debug("Attendee Deletion Initialized");
 			attendeeDAO.deleteAttendee(id);
 		}
 
 		public void updateAttendeeWithSessionMethod(Attendee attendee) {
+			logger.debug("Attendee Updating initiated");
 			if(attendee.getId() <= 0) return;
 			else if(attendee.getUser() == null) return;
 			else if(attendee.getWedding() == null) return;

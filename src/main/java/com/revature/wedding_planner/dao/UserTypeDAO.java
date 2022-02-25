@@ -3,6 +3,8 @@ package com.revature.wedding_planner.dao;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,6 +14,8 @@ import com.revature.wedding_planner.util.HibernateUtil;
 
 public class UserTypeDAO {
 
+	private final Logger logger = LogManager.getRootLogger();
+	
 	public boolean addUserType(UserType userType) {
 		try {
 			Session session = HibernateUtil.getSession();
@@ -43,6 +47,20 @@ public class UserTypeDAO {
 		try {
 			Session session = HibernateUtil.getSession();
 			UserType userType = session.get(UserType.class, id);
+			return userType;
+		} catch (HibernateException | IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+	
+	public UserType getUserTypeByEmail(String email) {
+		try {
+			Session session = HibernateUtil.getSession();
+			UserType userType = session.get(UserType.class, email);
+			
 			return userType;
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();
