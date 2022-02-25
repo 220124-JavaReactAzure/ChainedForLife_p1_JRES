@@ -29,7 +29,7 @@
 
 	<h2> Wedding Planner Application Add Resource Page</h2>
 
-	<form id="registerForm" name="registerForm">
+	<form target= "_blank" action= "http://localhost:8080/test-app/resource/register" method = "POST" id="registerForm" name="registerForm">
 		<label for="dateAvailableStart">Day Available:</label>
 		<input type="date" id="dateAvailableStart" name="dateAvailableStart"><br>
 		<label for="dateAvailableEnd">Day No Longer Available:</label>
@@ -39,7 +39,7 @@
 		<select id="resourceTypes" name="resourceTypes">
 		</select>
 
-		<input onclick="myFunction()" type="submit" value="Submit">
+		<input type="submit" value="Submit">
 	</form>
 
 
