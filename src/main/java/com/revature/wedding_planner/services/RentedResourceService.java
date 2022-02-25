@@ -18,7 +18,13 @@ public class RentedResourceService {
 	}
 
 	public boolean addRentedResource(RentedResource rentedResource) {
+<<<<<<< HEAD
 		logger.info("Added Rented Resource");
+=======
+		if(rentedResource.getId() <= 0) return false;
+		if(rentedResource.getResource() == null) return false;
+		if(rentedResource.getWedding() == null) return false;
+>>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
 		return rentedResourceDAO.addRentedResource(rentedResource);
 	}
 

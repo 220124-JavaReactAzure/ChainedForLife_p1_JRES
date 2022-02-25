@@ -18,7 +18,14 @@ public class PlusOneService {
 	}
 
 	public boolean addPlusOne(PlusOne plusOne) {
+<<<<<<< HEAD
 		logger.info(" Adding PlusOne");
+=======
+		if(plusOne.getId() <= 0) return false;
+		if(plusOne.getAttendee() == null) return false;
+		if(plusOne.getWedding() == null) return false;
+		if(plusOne.getDinnerType() == null) return false;
+>>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
 		return plusOneDAO.addPlusOne(plusOne);
 	}
 

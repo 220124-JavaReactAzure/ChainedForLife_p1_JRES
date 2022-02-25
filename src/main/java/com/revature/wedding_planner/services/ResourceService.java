@@ -1,5 +1,6 @@
 package com.revature.wedding_planner.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +20,12 @@ public class ResourceService {
 	}
 	
 	public boolean addResource(Resource resource) {
+<<<<<<< HEAD
 		logger.info("Adding Resource");
+=======
+		if(resource.getDateAvailableStart() == null) return false;
+		if(resource.getDateAvailableEnd() == null) return false;
+>>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
 		return resourceDAO.addResource(resource);
 	}
 	

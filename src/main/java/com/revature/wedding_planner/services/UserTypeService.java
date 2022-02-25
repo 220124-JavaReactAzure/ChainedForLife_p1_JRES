@@ -19,7 +19,12 @@ public class UserTypeService {
 	}
 	
 	public boolean addUserType(UserType userType) {
+<<<<<<< HEAD
 		logger.info("userType Added");
+=======
+		if(userType.getId() <= 0) return false;
+		else if(userType.getName().isEmpty()) return false;
+>>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
 		return userTypeDAO.addUserType(userType);
 	}
 	
