@@ -102,8 +102,8 @@ public class UserDAO {
 			Transaction transaction = session.beginTransaction();
 			User deletedUser = this.getUserByID(id);
 			
-			transaction.commit();
 			session.delete(deletedUser);
+			transaction.commit();
 			
 		} catch (HibernateException | IOException e) {
 			e.printStackTrace();

@@ -30,14 +30,21 @@ public class UserService {
 	
 	public boolean addUser(User user) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		logger.info("Addinguser");
 =======
 		if(user.getId() <= 0) return false;
+=======
+>>>>>>> c7ce8f4beed186c9325e5ae56956e4676ed74eee
 		if(user.getName() == "") return false;
 		if(user.getEmail() == "") return false;
 		if(user.getPassword() == "") return false;
 		if(user.getType() == null) return false;
+<<<<<<< HEAD
 >>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
+=======
+		logger.info("Addinguser");
+>>>>>>> c7ce8f4beed186c9325e5ae56956e4676ed74eee
 		return userDAO.addUser(user);
 	}
 	

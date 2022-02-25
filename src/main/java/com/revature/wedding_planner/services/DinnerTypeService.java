@@ -19,9 +19,8 @@ public class DinnerTypeService {
 	}
 	
 	public boolean addDinnerType(DinnerType dinnerType) {
+		if(dinnerType.getName().isEmpty()) return false;
 		logger.debug("DinnerType Added initiated");
-		if(dinnerType.getId() <= 0) return false;
-		else if(dinnerType.getName().isEmpty()) return false;
 		
 		return dinnerTypeDAO.addDinnerType(dinnerType);
 	}

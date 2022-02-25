@@ -21,11 +21,17 @@ public class ResourceService {
 	
 	public boolean addResource(Resource resource) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		logger.info("Adding Resource");
 =======
 		if(resource.getDateAvailableStart() == null) return false;
 		if(resource.getDateAvailableEnd() == null) return false;
 >>>>>>> 04ad1e03cfc770a24d6e8f95206bff8e2620e273
+=======
+		logger.info("Adding Resource");
+		if(resource.getDateAvailableStart() == null) return false;
+		if(resource.getDateAvailableEnd() == null) return false;
+>>>>>>> c7ce8f4beed186c9325e5ae56956e4676ed74eee
 		return resourceDAO.addResource(resource);
 	}
 	
