@@ -17,6 +17,9 @@ public class ResourceTypeDAO {
 	private final Logger logger = LogManager.getRootLogger();
 	
 	public boolean addResourceType(ResourceType resourceType) {
+		
+		
+		
 		try {
 			Session session = HibernateUtil.getSession();
 			session.save(resourceType);
